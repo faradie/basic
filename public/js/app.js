@@ -3177,17 +3177,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   data: function data() {
     return {
       data: {
-        nim: "",
-        password: "",
-        remember_me: false
+        id: "",
+        password: ""
       }
     };
   },
-  //SEBELUM COMPONENT DI-RENDER
   created: function created() {
-    //KITA MELAKUKAN PENGECEKAN JIKA SUDAH LOGIN DIMANA VALUE isAuth BERNILAI TRUE
     if (this.isAuth) {
-      //MAKA DI-DIRECT KE ROUTE DENGAN NAME home
       this.$router.push({
         name: "home"
       });
@@ -3195,17 +3191,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(["isAuth"]), {}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(["errors"])),
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])("auth", ["submit"]), {}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapMutations"])(["CLEAR_ERRORS"]), {
-    //KETIKA TOMBOL LOGIN DITEKAN, MAKA AKAN MEMINCU METHODS postLogin()
-    postLogin: function postLogin() {
+    pushLogin: function pushLogin() {
       var _this = this;
 
-      //DIMANA TOMBOL INI AKAN MENJALANKAN FUNGSI submit() DENGAN MENGIRIMKAN DATA YANG DIBUTUHKAN
       this.submit(this.data).then(function () {
-        //KEMUDIAN DI CEK VALUE DARI isAuth
-        //APABILA BERNILAI TRUE
         if (_this.isAuth) {
-          _this.CLEAR_ERRORS(); //MAKA AKAN DI-DIRECT KE ROUTE DENGAN NAME home
-
+          _this.CLEAR_ERRORS();
 
           _this.$router.push({
             name: "home"
@@ -3213,7 +3204,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }
       });
     }
-  })
+  }),
+  destroyed: function destroyed() {
+    this.CLEAR_ERRORS();
+  }
 });
 
 /***/ }),
@@ -3328,6 +3322,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         password_confirmation: ""
       }
     };
+  },
+  created: function created() {
+    if (this.isAuth) {
+      this.$router.push({
+        name: "home"
+      });
+    }
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(["isAuth"]), {}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(["errors"])),
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])("auth", ["registers"]), {}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapMutations"])(["CLEAR_ERRORS"]), {
@@ -6427,7 +6428,7 @@ var render = function() {
           "div",
           {
             staticClass: "form-group has-feedback",
-            class: { "has-error": _vm.errors.nim }
+            class: { "has-error": _vm.errors.id }
           },
           [
             _c("input", {
@@ -6435,19 +6436,19 @@ var render = function() {
                 {
                   name: "model",
                   rawName: "v-model",
-                  value: _vm.data.nim,
-                  expression: "data.nim"
+                  value: _vm.data.id,
+                  expression: "data.id"
                 }
               ],
               staticClass: "form-control",
               attrs: { type: "text", placeholder: "Id Pengguna" },
-              domProps: { value: _vm.data.nim },
+              domProps: { value: _vm.data.id },
               on: {
                 input: function($event) {
                   if ($event.target.composing) {
                     return
                   }
-                  _vm.$set(_vm.data, "nim", $event.target.value)
+                  _vm.$set(_vm.data, "id", $event.target.value)
                 }
               }
             }),
@@ -6456,9 +6457,9 @@ var render = function() {
               staticClass: "glyphicon glyphicon-user form-control-feedback"
             }),
             _vm._v(" "),
-            _vm.errors.nim
+            _vm.errors.id
               ? _c("p", { staticClass: "text-danger" }, [
-                  _vm._v(_vm._s(_vm.errors.nim[0]))
+                  _vm._v(_vm._s(_vm.errors.id[0]))
                 ])
               : _vm._e()
           ]
@@ -6538,7 +6539,7 @@ var render = function() {
                 on: {
                   click: function($event) {
                     $event.preventDefault()
-                    return _vm.postLogin($event)
+                    return _vm.pushLogin($event)
                   }
                 }
               },
@@ -23001,7 +23002,7 @@ __webpack_require__.r(__webpack_exports__);
 var $axios = axios__WEBPACK_IMPORTED_MODULE_0___default.a.create({
   baseURL: '/api',
   headers: {
-    Authorization: localStorage.getItem('token') != 'null' ? 'Bearer ' + JSON.stringify(localStorage.getItem('token')) : '',
+    Authorization: localStorage.getItem('token') != 'null' ? 'Bearer ' + localStorage.getItem('token') : '',
     'Content-Type': 'application/json'
   }
 });
@@ -23566,7 +23567,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
     name: 'login',
     component: _pages_auth_Login_vue__WEBPACK_IMPORTED_MODULE_3__["default"]
   }, {
-    path: 'register',
+    path: '/register',
     name: 'register',
     component: _pages_auth_Register_vue__WEBPACK_IMPORTED_MODULE_4__["default"]
   }]
@@ -23607,26 +23608,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 /* harmony import */ var _stores_auth_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./stores/auth.js */ "./resources/js/stores/auth.js");
 
- //IMPORT MODULE SECTION
 
 
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__["default"]); //DEFINE ROOT STORE VUEX
-
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__["default"]);
 var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
-  //SEMUA MODULE YANG DIBUAT AKAN DITEPATKAN DIDALAM BAGIAN INI DAN DIPISAHKAN DENGAN KOMA UNTUK SETIAP MODULE-NYA
   modules: {
     auth: _stores_auth_js__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
-  //STATE HAMPIR SERUPA DENGAN PROPERTY DATA DARI COMPONENT HANYA SAJA DAPAT DIGUNAKAN SECARA GLOBAL
   state: {
-    //VARIABLE TOKEN MENGAMBIL VALUE DARI LOCAL STORAGE token
     token: localStorage.getItem('token'),
     errors: []
   },
   getters: {
-    //KITA MEMBUAT SEBUAH GETTERS DENGAN NAMA isAuth
-    //DIMANA GETTERS INI AKAN BERNILAI TRUE/FALSE DENGAN KONDISI BERDASARKAN
-    //STATE token.
     isAuth: function isAuth(state) {
       return state.token != "null" && state.token != null;
     }
@@ -23688,35 +23681,24 @@ var actions = {
   },
   submit: function submit(_ref2, payload) {
     var commit = _ref2.commit;
-    localStorage.setItem('token', null); //RESET LOCAL STORAGE MENJADI NULL
-
+    localStorage.setItem('token', null);
     commit('SET_TOKEN', null, {
       root: true
-    }); //RESET STATE TOKEN MENJADI NULL
-    //KARENA MUTATIONS SET_TOKEN BERADA PADA ROOT STORES, MAKA DITAMBAHKAN PARAMETER
-    //{ root: true }
-    //KITA MENGGUNAKAN PROMISE AGAR FUNGSI SELANJUTNYA BERJALAN KETIKA FUNGSI INI SELESAI
-
+    });
     return new Promise(function (resolve, reject) {
-      //MENGIRIM REQUEST KE SERVER DENGAN URI /login 
-      //DAN PAYLOAD ADALAH DATA YANG DIKIRIMKAN DARI COMPONENT LOGIN.VUE
-      _api_js__WEBPACK_IMPORTED_MODULE_0__["default"].post('/login', payload).then(function (response) {
-        //KEMUDIAN JIKA RESPONNYA SUKSES
+      _api_js__WEBPACK_IMPORTED_MODULE_0__["default"].post("/login", payload).then(function (response) {
         if (response.data.status == 'success') {
-          //MAKA LOCAL STORAGE DAN STATE TOKEN AKAN DISET MENGGUNAKAN
-          //API DARI SERVER RESPONSE
           localStorage.setItem('token', response.data.data);
           commit('SET_TOKEN', response.data.data, {
             root: true
           });
         } else {
           commit('SET_ERRORS', {
-            invalid: 'Email/Password Salah'
+            invalid: 'Id/Password Salah'
           }, {
             root: true
           });
-        } //JANGAN LUPA UNTUK MELAKUKAN RESOLVE AGAR DIANGGAP SELESAI
-
+        }
 
         resolve(response.data);
       })["catch"](function (error) {

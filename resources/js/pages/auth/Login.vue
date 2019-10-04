@@ -10,10 +10,10 @@
       <div class="login-box-body">
         <p class="login-box-msg">Jangan lupa baca belajar</p>
 
-        <div class="form-group has-feedback" :class="{'has-error': errors.nim}">
-          <input type="text" class="form-control" placeholder="Id Pengguna" v-model="data.nim" />
+        <div class="form-group has-feedback" :class="{'has-error': errors.id}">
+          <input type="text" class="form-control" placeholder="Id Pengguna" v-model="data.id" />
           <span class="glyphicon glyphicon-user form-control-feedback"></span>
-          <p class="text-danger" v-if="errors.nim">{{ errors.nim[0] }}</p>
+          <p class="text-danger" v-if="errors.id">{{ errors.id[0] }}</p>
         </div>
         <div class="form-group has-feedback" :class="{'has-error': errors.password}">
           <input
@@ -39,7 +39,7 @@
             <button
               type="submit"
               class="btn btn-primary btn-block btn-flat"
-              @click.prevent="postLogin"
+              @click.prevent="pushLogin"
             >Login</button>
           </div>
         </div>
@@ -55,17 +55,13 @@ export default {
   data() {
     return {
       data: {
-        nim: "",
+        id: "",
         password: "",
-        remember_me: false
       }
     };
   },
-  //SEBELUM COMPONENT DI-RENDER
   created() {
-    //KITA MELAKUKAN PENGECEKAN JIKA SUDAH LOGIN DIMANA VALUE isAuth BERNILAI TRUE
     if (this.isAuth) {
-      //MAKA DI-DIRECT KE ROUTE DENGAN NAME home
       this.$router.push({ name: "home" });
     }
   },
@@ -74,22 +70,20 @@ export default {
     ...mapState(["errors"])
   },
   methods: {
-    ...mapActions("auth", ["submit"]), //MENGISIASI FUNGSI submit() DARI VUEX AGAR DAPAT DIGUNAKAN PADA COMPONENT TERKAIT. submit() BERASAL DARI ACTION PADA FOLDER STORES/auth.js
+    ...mapActions("auth", ["submit"]), 
     ...mapMutations(["CLEAR_ERRORS"]),
 
-    //KETIKA TOMBOL LOGIN DITEKAN, MAKA AKAN MEMINCU METHODS postLogin()
-    postLogin() {
-      //DIMANA TOMBOL INI AKAN MENJALANKAN FUNGSI submit() DENGAN MENGIRIMKAN DATA YANG DIBUTUHKAN
+    pushLogin() {
       this.submit(this.data).then(() => {
-        //KEMUDIAN DI CEK VALUE DARI isAuth
-        //APABILA BERNILAI TRUE
         if (this.isAuth) {
           this.CLEAR_ERRORS();
-          //MAKA AKAN DI-DIRECT KE ROUTE DENGAN NAME home
           this.$router.push({ name: "home" });
         }
       });
     }
+  },
+  destroyed(){
+    this.CLEAR_ERRORS();
   }
 };
 </script>

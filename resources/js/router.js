@@ -30,7 +30,7 @@ const router = new Router({
             component: Login
         },
         {
-            path: 'register',
+            path: '/register',
             name: 'register',
             component: Register
         }

@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class LoginController extends Controller
 {
@@ -36,4 +38,21 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
+
+    public function login(Request $request)
+{
+    $this->validate($request, [
+        'id' => ['required', 'string', 'max:12'],
+        'password' => 'required'
+    ]);
+
+    $auth = $request->except(['remember_me']);
+    
+    if (auth()->attempt($auth)) {
+        auth()->user()->update(['remember_token' => Str::random(40)]);
+        return response()->json(['status' => 'success', 'data' => auth()->user()->remember_token], 200);
+    }
+    return response()->json(['status' => 'failed']);
+}
+
 }

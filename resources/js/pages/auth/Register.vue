@@ -94,6 +94,11 @@ export default {
       }
     };
   },
+  created() {
+    if (this.isAuth) {
+      this.$router.push({ name: "home" });
+    }
+  },
   computed: {
     ...mapGetters(["isAuth"]), //MENGAMBIL GETTERS isAuth DARI VUEX
     ...mapState(["errors"])
@@ -113,6 +118,3 @@ export default {
   }
 };
 </script>
-
-<style>
-</style>
