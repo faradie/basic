@@ -9,20 +9,22 @@
       </div>
 
       <div class="panel-body">
-        <b-table striped hover bordered :items="courses.data" :fields="fields" show-empty>
-          <template v-slot:cell(id)="row">
-            <td class="parent-row">{{ row.item.id }}</td>
-          </template>
-          <template v-slot:cell(name)="row">
-            <td class="parent-row">{{ row.item.name }}</td>
-          </template>
-          <template v-slot:cell(description)="row">
-            <td class="parent-row">{{ row.item.description }}</td>
-          </template>
-          <template v-slot:cell(created_at)="row">
-            <td class="parent-row">{{ row.item.created_at }}</td>
-          </template>
-        </b-table>
+        <div class="table-responsive">
+          <b-table striped hover bordered :items="courses.data" :fields="fields" show-empty>
+            <template v-slot:cell(idNya)="row">
+              <td class="parent-row">{{ row.item.id }}</td>
+            </template>
+            <template v-slot:cell(name)="row">
+              <td class="parent-row">{{ row.item.name }}</td>
+            </template>
+            <template v-slot:cell(description)="row">
+              <td class="parent-row">{{ row.item.description }}</td>
+            </template>
+            <template v-slot:cell(created_at)="row">
+              <td class="parent-row">{{ row.item.created_at | moment("D MMMM YYYY") }}</td>
+            </template>
+          </b-table>
+        </div>
       </div>
     </div>
   </div>
@@ -41,7 +43,7 @@ export default {
   data() {
     return {
       fields: [
-        { key: "id", label: "ID" },
+        { key: "idNya", label: "ID" },
         { key: "name", label: "Matakuliah" },
         { key: "description", label: "Deskripsi" },
         { key: "created_at", label: "Dibuat" }
