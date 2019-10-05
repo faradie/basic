@@ -5,6 +5,9 @@ import Home from './pages/Home.vue'
 import Login from './pages/auth/Login.vue'
 import Register from './pages/auth/Register.vue'
 import Index from './pages/Index.vue'
+import IndexCourses from './pages/courses/Index.vue'
+import DataCourses from './pages/courses/DataCourses.vue'
+import AddCourse from './pages/courses/Add.vue'
 import store from './store.js'
 
 Vue.use(Router)
@@ -33,12 +36,31 @@ const router = new Router({
             path: '/register',
             name: 'register',
             component: Register
+        },
+        {
+            path: '/courses',
+            component: IndexCourses,
+            children: [
+                {
+                    path: '',
+                    name: 'courses.data',
+                    component: DataCourses,
+                    meta: { title: 'Kelola Matakuliah' }
+                },
+                {
+                    path: 'add',
+                    name: 'courses.add',
+                    component: AddCourse,
+                    meta: { title: 'Tambah Matakuliah' }
+                }
+            ]
         }
     ]
 });
 
 //Navigation Guards
 router.beforeEach((to, from, next) => {
+    store.commit('CLEAR_ERRORS')
     if (to.matched.some(record => record.meta.requiresAuth)) {
         let auth = store.getters.isAuth
         if (!auth) {

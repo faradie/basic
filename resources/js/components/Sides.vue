@@ -28,13 +28,12 @@
           </li>
           <li class="header">Master</li>
           <li>
-            <a href="pages/widgets.html">
-              <i class="fa fa-files-o"></i>
-              <span>Matakuliah</span>
-              <span class="pull-right-container">
-                <small class="label pull-right bg-green">manage</small>
-              </span>
-            </a>
+            <router-link :to="{ name:'courses.data' }">
+              <a>
+                <i class="fa fa-files-o"></i>
+                <span>Matakuliah</span>
+              </a>
+            </router-link>
           </li>
           <li>
             <a href="pages/widgets.html">

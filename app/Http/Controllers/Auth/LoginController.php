@@ -49,8 +49,8 @@ class LoginController extends Controller
     $auth = $request->except(['remember_me']);
     
     if (auth()->attempt($auth)) {
-        auth()->user()->update(['remember_token' => Str::random(40)]);
-        return response()->json(['status' => 'success', 'data' => auth()->user()->remember_token], 200);
+        auth()->user()->update(['api_token' => Str::random(40)]);
+        return response()->json(['status' => 'success', 'data' => auth()->user()->api_token], 200);
     }
     return response()->json(['status' => 'failed']);
 }
