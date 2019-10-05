@@ -1891,7 +1891,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ __webpack_exports__["default"] = ({});
 
 /***/ }),
@@ -2009,7 +2008,20 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(["token"]), {}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(["isAuth"]))
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(["token"]), {}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(["isAuth"])),
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])("auth", ["signout"]), {}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapMutations"])(["CLEAR_ERRORS"]), {
+    signOut: function signOut() {
+      var _this = this;
+
+      this.signout().then(function () {
+        _this.CLEAR_ERRORS();
+
+        _this.$router.push({
+          name: "index"
+        });
+      });
+    }
+  })
 });
 
 /***/ }),
@@ -2023,6 +2035,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -3913,7 +3934,8 @@ var staticRenderFns = [
         ]),
         _vm._v(".")
       ]),
-      _vm._v(" All rights\n  reserved.\n")
+      _vm._v(" All made with "),
+      _c("i", { staticClass: "fa fa-heart" })
     ])
   }
 ]
@@ -3981,7 +4003,31 @@ var render = function() {
               ? _c("li", { staticClass: "dropdown user user-menu" }, [
                   _vm._m(2),
                   _vm._v(" "),
-                  _vm._m(3)
+                  _c("ul", { staticClass: "dropdown-menu" }, [
+                    _vm._m(3),
+                    _vm._v(" "),
+                    _vm._m(4),
+                    _vm._v(" "),
+                    _c("li", { staticClass: "user-footer" }, [
+                      _vm._m(5),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "pull-right" }, [
+                        _c(
+                          "a",
+                          {
+                            staticClass: "btn btn-default btn-flat",
+                            on: {
+                              click: function($event) {
+                                $event.preventDefault()
+                                return _vm.signOut($event)
+                              }
+                            }
+                          },
+                          [_vm._v("Logout")]
+                        )
+                      ])
+                    ])
+                  ])
                 ])
               : _c(
                   "li",
@@ -4086,49 +4132,45 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("ul", { staticClass: "dropdown-menu" }, [
-      _c("li", { staticClass: "user-header" }, [
-        _c("p", [
-          _vm._v(
-            "\n                Alexander Pierce - Web Developer\n                "
-          ),
-          _c("small", [_vm._v("Member since Nov. 2012")])
-        ])
-      ]),
-      _vm._v(" "),
-      _c("li", { staticClass: "user-body" }, [
-        _c("div", { staticClass: "row" }, [
-          _c("div", { staticClass: "col-xs-4 text-center" }, [
-            _c("a", { attrs: { href: "#" } }, [_vm._v("Followers")])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "col-xs-4 text-center" }, [
-            _c("a", { attrs: { href: "#" } }, [_vm._v("Sales")])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "col-xs-4 text-center" }, [
-            _c("a", { attrs: { href: "#" } }, [_vm._v("Friends")])
-          ])
-        ])
-      ]),
-      _vm._v(" "),
-      _c("li", { staticClass: "user-footer" }, [
-        _c("div", { staticClass: "pull-left" }, [
-          _c(
-            "a",
-            { staticClass: "btn btn-default btn-flat", attrs: { href: "#" } },
-            [_vm._v("Profile")]
-          )
+    return _c("li", { staticClass: "user-header" }, [
+      _c("p", [
+        _vm._v(
+          "\n                Alexander Pierce - Web Developer\n                "
+        ),
+        _c("small", [_vm._v("Member since Nov. 2012")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("li", { staticClass: "user-body" }, [
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col-xs-4 text-center" }, [
+          _c("a", { attrs: { href: "#" } }, [_vm._v("Followers")])
         ]),
         _vm._v(" "),
-        _c("div", { staticClass: "pull-right" }, [
-          _c(
-            "a",
-            { staticClass: "btn btn-default btn-flat", attrs: { href: "#" } },
-            [_vm._v("Sign out")]
-          )
+        _c("div", { staticClass: "col-xs-4 text-center" }, [
+          _c("a", { attrs: { href: "#" } }, [_vm._v("Sales")])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-xs-4 text-center" }, [
+          _c("a", { attrs: { href: "#" } }, [_vm._v("Friends")])
         ])
       ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "pull-left" }, [
+      _c(
+        "a",
+        { staticClass: "btn btn-default btn-flat", attrs: { href: "#" } },
+        [_vm._v("Profile")]
+      )
     ])
   }
 ]
@@ -4153,237 +4195,311 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", [
+    _c("aside", { staticClass: "main-sidebar" }, [
+      _c("section", { staticClass: "sidebar" }, [
+        _vm._m(0),
+        _vm._v(" "),
+        _c(
+          "ul",
+          { staticClass: "sidebar-menu", attrs: { "data-widget": "tree" } },
+          [
+            _c(
+              "li",
+              [
+                _c("router-link", { attrs: { to: { name: "home" } } }, [
+                  _c("a", [
+                    _c("i", { staticClass: "fa fa-ticket" }),
+                    _vm._v(" "),
+                    _c("span", [_vm._v("Beranda")])
+                  ])
+                ])
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c("li", { staticClass: "header" }, [_vm._v("Master")]),
+            _vm._v(" "),
+            _vm._m(1),
+            _vm._v(" "),
+            _vm._m(2),
+            _vm._v(" "),
+            _vm._m(3),
+            _vm._v(" "),
+            _c("li", { staticClass: "header" }, [_vm._v("Kelola")]),
+            _vm._v(" "),
+            _vm._m(4),
+            _vm._v(" "),
+            _vm._m(5),
+            _vm._v(" "),
+            _vm._m(6),
+            _vm._v(" "),
+            _vm._m(7),
+            _vm._v(" "),
+            _vm._m(8),
+            _vm._v(" "),
+            _c("li", { staticClass: "header" }, [_vm._v("Praktikan")]),
+            _vm._v(" "),
+            _vm._m(9),
+            _vm._v(" "),
+            _vm._m(10)
+          ]
+        )
+      ])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "control-sidebar-bg" })
+  ])
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", [
-      _c("aside", { staticClass: "main-sidebar" }, [
-        _c("section", { staticClass: "sidebar" }, [
-          _c("div", { staticClass: "user-panel" }, [
-            _c("div", { staticClass: "pull-left image" }, [
-              _c("img", {
-                staticClass: "img-circle",
-                attrs: { src: "/assets/img/avatar5.png", alt: "User Image" }
-              })
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "pull-left info" }, [
-              _c("p", [_vm._v("Alexander Pierce")]),
-              _vm._v(" "),
-              _c("a", { attrs: { href: "#" } }, [
-                _c("i", { staticClass: "fa fa-circle text-success" }),
-                _vm._v(" Role\n          ")
-              ])
-            ])
-          ]),
-          _vm._v(" "),
-          _c(
-            "ul",
-            { staticClass: "sidebar-menu", attrs: { "data-widget": "tree" } },
-            [
-              _c("li", { staticClass: "header" }, [_vm._v("Master")]),
-              _vm._v(" "),
-              _c("li", [
-                _c("a", { attrs: { href: "pages/widgets.html" } }, [
-                  _c("i", { staticClass: "fa fa-files-o" }),
-                  _vm._v(" "),
-                  _c("span", [_vm._v("Matakuliah")]),
-                  _vm._v(" "),
-                  _c("span", { staticClass: "pull-right-container" }, [
-                    _c("small", { staticClass: "label pull-right bg-green" }, [
-                      _vm._v("manage")
-                    ])
-                  ])
-                ])
-              ]),
-              _vm._v(" "),
-              _c("li", [
-                _c("a", { attrs: { href: "pages/widgets.html" } }, [
-                  _c("i", { staticClass: "fa fa-book" }),
-                  _vm._v(" "),
-                  _c("span", [_vm._v("Materi")])
-                ])
-              ]),
-              _vm._v(" "),
-              _c("li", [
-                _c("a", { attrs: { href: "pages/widgets.html" } }, [
-                  _c("i", { staticClass: "fa fa-files-o" }),
-                  _vm._v(" "),
-                  _c("span", [_vm._v("Kategori")])
-                ])
-              ]),
-              _vm._v(" "),
-              _c("li", { staticClass: "header" }, [_vm._v("Kelola")]),
-              _vm._v(" "),
-              _c("li", [
-                _c("a", { attrs: { href: "pages/widgets.html" } }, [
-                  _c("i", { staticClass: "fa fa-info-circle" }),
-                  _vm._v(" "),
-                  _c("span", [_vm._v("Informasi")])
-                ])
-              ]),
-              _vm._v(" "),
-              _c("li", [
-                _c("a", { attrs: { href: "pages/widgets.html" } }, [
-                  _c("i", { staticClass: "fa fa-graduation-cap" }),
-                  _vm._v(" "),
-                  _c("span", [_vm._v("Kelas")])
-                ])
-              ]),
-              _vm._v(" "),
-              _c("li", [
-                _c("a", { attrs: { href: "pages/widgets.html" } }, [
-                  _c("i", { staticClass: "fa fa-group" }),
-                  _vm._v(" "),
-                  _c("span", [_vm._v("Pengguna")])
-                ])
-              ]),
-              _vm._v(" "),
-              _c("li", { staticClass: "treeview" }, [
-                _c("a", { attrs: { href: "#" } }, [
-                  _c("i", { staticClass: "fa fa-tags" }),
-                  _vm._v(" "),
-                  _c("span", [_vm._v("Task")]),
-                  _vm._v(" "),
-                  _c("span", { staticClass: "pull-right-container" }, [
-                    _c("i", { staticClass: "fa fa-angle-left pull-right" })
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("ul", { staticClass: "treeview-menu" }, [
-                  _c("li", [
-                    _c("a", { attrs: { href: "pages/charts/chartjs.html" } }, [
-                      _c("i", { staticClass: "fa fa-circle-o" }),
-                      _vm._v(" Laporan\n              ")
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("li", [
-                    _c("a", { attrs: { href: "pages/charts/morris.html" } }, [
-                      _c("i", { staticClass: "fa fa-circle-o" }),
-                      _vm._v(" Pretest\n              ")
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("li", [
-                    _c("a", { attrs: { href: "pages/charts/flot.html" } }, [
-                      _c("i", { staticClass: "fa fa-circle-o" }),
-                      _vm._v(" Tugas\n              ")
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("li", [
-                    _c("a", { attrs: { href: "pages/charts/inline.html" } }, [
-                      _c("i", { staticClass: "fa fa-circle-o" }),
-                      _vm._v(" Ujian\n              ")
-                    ])
-                  ])
-                ])
-              ]),
-              _vm._v(" "),
-              _c("li", { staticClass: "treeview" }, [
-                _c("a", { attrs: { href: "#" } }, [
-                  _c("i", { staticClass: "fa fa-pie-chart" }),
-                  _vm._v(" "),
-                  _c("span", [_vm._v("Penilaian")]),
-                  _vm._v(" "),
-                  _c("span", { staticClass: "pull-right-container" }, [
-                    _c("i", { staticClass: "fa fa-angle-left pull-right" })
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("ul", { staticClass: "treeview-menu" }, [
-                  _c("li", [
-                    _c("a", { attrs: { href: "pages/charts/chartjs.html" } }, [
-                      _c("i", { staticClass: "fa fa-circle-o" }),
-                      _vm._v(" Laporan\n              ")
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("li", [
-                    _c("a", { attrs: { href: "pages/charts/morris.html" } }, [
-                      _c("i", { staticClass: "fa fa-circle-o" }),
-                      _vm._v(" Pretest\n              ")
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("li", [
-                    _c("a", { attrs: { href: "pages/charts/flot.html" } }, [
-                      _c("i", { staticClass: "fa fa-circle-o" }),
-                      _vm._v(" Tugas\n              ")
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("li", [
-                    _c("a", { attrs: { href: "pages/charts/inline.html" } }, [
-                      _c("i", { staticClass: "fa fa-circle-o" }),
-                      _vm._v(" Ujian\n              ")
-                    ])
-                  ])
-                ])
-              ]),
-              _vm._v(" "),
-              _c("li", { staticClass: "header" }, [_vm._v("Praktikan")]),
-              _vm._v(" "),
-              _c("li", { staticClass: "treeview" }, [
-                _c("a", { attrs: { href: "#" } }, [
-                  _c("i", { staticClass: "fa fa-upload" }),
-                  _vm._v(" "),
-                  _c("span", [_vm._v("Upload")]),
-                  _vm._v(" "),
-                  _c("span", { staticClass: "pull-right-container" }, [
-                    _c("i", { staticClass: "fa fa-angle-left pull-right" })
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("ul", { staticClass: "treeview-menu" }, [
-                  _c("li", [
-                    _c("a", { attrs: { href: "pages/charts/chartjs.html" } }, [
-                      _c("i", { staticClass: "fa fa-circle-o" }),
-                      _vm._v(" Laporan\n              ")
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("li", [
-                    _c("a", { attrs: { href: "pages/charts/morris.html" } }, [
-                      _c("i", { staticClass: "fa fa-circle-o" }),
-                      _vm._v(" Pretest\n              ")
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("li", [
-                    _c("a", { attrs: { href: "pages/charts/flot.html" } }, [
-                      _c("i", { staticClass: "fa fa-circle-o" }),
-                      _vm._v(" Tugas\n              ")
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("li", [
-                    _c("a", { attrs: { href: "pages/charts/inline.html" } }, [
-                      _c("i", { staticClass: "fa fa-circle-o" }),
-                      _vm._v(" Ujian\n              ")
-                    ])
-                  ])
-                ])
-              ]),
-              _vm._v(" "),
-              _c("li", [
-                _c("a", { attrs: { href: "pages/widgets.html" } }, [
-                  _c("i", { staticClass: "fa fa-ticket" }),
-                  _vm._v(" "),
-                  _c("span", [_vm._v("Nilai Saya")])
-                ])
-              ])
-            ]
-          )
+    return _c("div", { staticClass: "user-panel" }, [
+      _c("div", { staticClass: "pull-left image" }, [
+        _c("img", {
+          staticClass: "img-circle",
+          attrs: { src: "/assets/img/avatar5.png", alt: "User Image" }
+        })
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "pull-left info" }, [
+        _c("p", [_vm._v("Alexander Pierce")]),
+        _vm._v(" "),
+        _c("a", { attrs: { href: "#" } }, [
+          _c("i", { staticClass: "fa fa-circle text-success" }),
+          _vm._v(" Role\n          ")
+        ])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("li", [
+      _c("a", { attrs: { href: "pages/widgets.html" } }, [
+        _c("i", { staticClass: "fa fa-files-o" }),
+        _vm._v(" "),
+        _c("span", [_vm._v("Matakuliah")]),
+        _vm._v(" "),
+        _c("span", { staticClass: "pull-right-container" }, [
+          _c("small", { staticClass: "label pull-right bg-green" }, [
+            _vm._v("manage")
+          ])
+        ])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("li", [
+      _c("a", { attrs: { href: "pages/widgets.html" } }, [
+        _c("i", { staticClass: "fa fa-book" }),
+        _vm._v(" "),
+        _c("span", [_vm._v("Materi")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("li", [
+      _c("a", { attrs: { href: "pages/widgets.html" } }, [
+        _c("i", { staticClass: "fa fa-files-o" }),
+        _vm._v(" "),
+        _c("span", [_vm._v("Kategori")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("li", [
+      _c("a", { attrs: { href: "pages/widgets.html" } }, [
+        _c("i", { staticClass: "fa fa-info-circle" }),
+        _vm._v(" "),
+        _c("span", [_vm._v("Informasi")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("li", [
+      _c("a", { attrs: { href: "pages/widgets.html" } }, [
+        _c("i", { staticClass: "fa fa-graduation-cap" }),
+        _vm._v(" "),
+        _c("span", [_vm._v("Kelas")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("li", [
+      _c("a", { attrs: { href: "pages/widgets.html" } }, [
+        _c("i", { staticClass: "fa fa-group" }),
+        _vm._v(" "),
+        _c("span", [_vm._v("Pengguna")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("li", { staticClass: "treeview" }, [
+      _c("a", { attrs: { href: "#" } }, [
+        _c("i", { staticClass: "fa fa-tags" }),
+        _vm._v(" "),
+        _c("span", [_vm._v("Task")]),
+        _vm._v(" "),
+        _c("span", { staticClass: "pull-right-container" }, [
+          _c("i", { staticClass: "fa fa-angle-left pull-right" })
         ])
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "control-sidebar-bg" })
+      _c("ul", { staticClass: "treeview-menu" }, [
+        _c("li", [
+          _c("a", { attrs: { href: "pages/charts/chartjs.html" } }, [
+            _c("i", { staticClass: "fa fa-circle-o" }),
+            _vm._v(" Laporan\n              ")
+          ])
+        ]),
+        _vm._v(" "),
+        _c("li", [
+          _c("a", { attrs: { href: "pages/charts/morris.html" } }, [
+            _c("i", { staticClass: "fa fa-circle-o" }),
+            _vm._v(" Pretest\n              ")
+          ])
+        ]),
+        _vm._v(" "),
+        _c("li", [
+          _c("a", { attrs: { href: "pages/charts/flot.html" } }, [
+            _c("i", { staticClass: "fa fa-circle-o" }),
+            _vm._v(" Tugas\n              ")
+          ])
+        ]),
+        _vm._v(" "),
+        _c("li", [
+          _c("a", { attrs: { href: "pages/charts/inline.html" } }, [
+            _c("i", { staticClass: "fa fa-circle-o" }),
+            _vm._v(" Ujian\n              ")
+          ])
+        ])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("li", { staticClass: "treeview" }, [
+      _c("a", { attrs: { href: "#" } }, [
+        _c("i", { staticClass: "fa fa-pie-chart" }),
+        _vm._v(" "),
+        _c("span", [_vm._v("Penilaian")]),
+        _vm._v(" "),
+        _c("span", { staticClass: "pull-right-container" }, [
+          _c("i", { staticClass: "fa fa-angle-left pull-right" })
+        ])
+      ]),
+      _vm._v(" "),
+      _c("ul", { staticClass: "treeview-menu" }, [
+        _c("li", [
+          _c("a", { attrs: { href: "pages/charts/chartjs.html" } }, [
+            _c("i", { staticClass: "fa fa-circle-o" }),
+            _vm._v(" Laporan\n              ")
+          ])
+        ]),
+        _vm._v(" "),
+        _c("li", [
+          _c("a", { attrs: { href: "pages/charts/morris.html" } }, [
+            _c("i", { staticClass: "fa fa-circle-o" }),
+            _vm._v(" Pretest\n              ")
+          ])
+        ]),
+        _vm._v(" "),
+        _c("li", [
+          _c("a", { attrs: { href: "pages/charts/flot.html" } }, [
+            _c("i", { staticClass: "fa fa-circle-o" }),
+            _vm._v(" Tugas\n              ")
+          ])
+        ]),
+        _vm._v(" "),
+        _c("li", [
+          _c("a", { attrs: { href: "pages/charts/inline.html" } }, [
+            _c("i", { staticClass: "fa fa-circle-o" }),
+            _vm._v(" Ujian\n              ")
+          ])
+        ])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("li", { staticClass: "treeview" }, [
+      _c("a", { attrs: { href: "#" } }, [
+        _c("i", { staticClass: "fa fa-upload" }),
+        _vm._v(" "),
+        _c("span", [_vm._v("Upload")]),
+        _vm._v(" "),
+        _c("span", { staticClass: "pull-right-container" }, [
+          _c("i", { staticClass: "fa fa-angle-left pull-right" })
+        ])
+      ]),
+      _vm._v(" "),
+      _c("ul", { staticClass: "treeview-menu" }, [
+        _c("li", [
+          _c("a", { attrs: { href: "pages/charts/chartjs.html" } }, [
+            _c("i", { staticClass: "fa fa-circle-o" }),
+            _vm._v(" Laporan\n              ")
+          ])
+        ]),
+        _vm._v(" "),
+        _c("li", [
+          _c("a", { attrs: { href: "pages/charts/morris.html" } }, [
+            _c("i", { staticClass: "fa fa-circle-o" }),
+            _vm._v(" Pretest\n              ")
+          ])
+        ]),
+        _vm._v(" "),
+        _c("li", [
+          _c("a", { attrs: { href: "pages/charts/flot.html" } }, [
+            _c("i", { staticClass: "fa fa-circle-o" }),
+            _vm._v(" Tugas\n              ")
+          ])
+        ]),
+        _vm._v(" "),
+        _c("li", [
+          _c("a", { attrs: { href: "pages/charts/inline.html" } }, [
+            _c("i", { staticClass: "fa fa-circle-o" }),
+            _vm._v(" Ujian\n              ")
+          ])
+        ])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("li", [
+      _c("a", { attrs: { href: "pages/widgets.html" } }, [
+        _c("i", { staticClass: "fa fa-ticket" }),
+        _vm._v(" "),
+        _c("span", [_vm._v("Nilai Saya")])
+      ])
     ])
   }
 ]
@@ -23659,10 +23775,17 @@ var state = function state() {
 
 var mutations = {};
 var actions = {
-  registers: function registers(_ref, payload) {
+  signout: function signout(_ref) {
+    var commit = _ref.commit;
+    localStorage.setItem('token', null);
+    commit('SET_TOKEN', null, {
+      root: true
+    });
+  },
+  registers: function registers(_ref2, payload) {
     var _this = this;
 
-    var commit = _ref.commit;
+    var commit = _ref2.commit;
     return new Promise(function (resolve, reject) {
       _api_js__WEBPACK_IMPORTED_MODULE_0__["default"].post("/register", payload).then(function (response) {
         resolve(response.data);
@@ -23679,8 +23802,8 @@ var actions = {
       });
     });
   },
-  submit: function submit(_ref2, payload) {
-    var commit = _ref2.commit;
+  submit: function submit(_ref3, payload) {
+    var commit = _ref3.commit;
     localStorage.setItem('token', null);
     commit('SET_TOKEN', null, {
       root: true

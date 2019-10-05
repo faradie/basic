@@ -79,7 +79,7 @@
                   <a href="#" class="btn btn-default btn-flat">Profile</a>
                 </div>
                 <div class="pull-right">
-                  <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                  <a class="btn btn-default btn-flat" @click.prevent="signOut">Logout</a>
                 </div>
               </li>
             </ul>
@@ -94,11 +94,21 @@
 </template>
 
 <script>
-import { mapState, mapGetters } from "vuex";
+import { mapState, mapGetters, mapActions, mapMutations } from "vuex";
 export default {
   computed: {
     ...mapState(["token"]),
     ...mapGetters(["isAuth"])
+  },
+  methods:{
+    ...mapActions("auth", ["signout"]), 
+    ...mapMutations(["CLEAR_ERRORS"]),
+    signOut(){
+      this.signout().then(()=>{
+          this.CLEAR_ERRORS();
+          this.$router.push({ name: "index" });
+      })
+    }
   }
 };
 </script>

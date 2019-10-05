@@ -18,6 +18,14 @@
 
         <!-- sidebar menu: : style can be found in sidebar.less -->
         <ul class="sidebar-menu" data-widget="tree">
+          <li>
+            <router-link :to="{ name:'home' }">
+              <a>
+                <i class="fa fa-ticket"></i>
+                <span>Beranda</span>
+              </a>
+            </router-link>
+          </li>
           <li class="header">Master</li>
           <li>
             <a href="pages/widgets.html">
@@ -123,6 +131,7 @@
             </ul>
           </li>
           <li class="header">Praktikan</li>
+
           <li class="treeview">
             <a href="#">
               <i class="fa fa-upload"></i>

@@ -9,6 +9,11 @@ const mutations = {
 }
 
 const actions = {
+    signout({ commit }) {
+        localStorage.setItem('token', null)
+        commit('SET_TOKEN', null, { root: true })
+        
+    },
     registers({ commit }, payload) {
         return new Promise((resolve, reject) => {
             $axios.post(`/register`, payload).then((response) => {
@@ -22,9 +27,9 @@ const actions = {
         })
     },
     submit({ commit }, payload) {
-        localStorage.setItem('token', null) 
+        localStorage.setItem('token', null)
         commit('SET_TOKEN', null, { root: true })
-        
+
         return new Promise((resolve, reject) => {
             $axios.post(`/login`, payload)
                 .then((response) => {
