@@ -15,11 +15,22 @@ const mutations = {
     SET_COURSES(state, payload) {
         state.courses = payload;
     },
+    SET_PAGE(state, payload) {
+        state.page = payload
+    },
     CLEAR_FORM_COURSE(state) {
-        state.courses = {
+        state.course = {
             id: '',
             name: '',
             description: ''
+        }
+    },
+    FILL_COURSE_FORM(state, payload) {
+        state.course = {
+            id: payload.id,
+            name: payload.name,
+            description: payload.description,
+            status: payload.status,
         }
     }
 }
@@ -36,15 +47,34 @@ const actions = {
             })
         })
     },
-    createCourse({ commit,state }, payload) {
+    createCourse({ commit, state }, payload) {
         return new Promise((resolve, reject) => {
             $axios.post('/courses', state.course).then((response) => {
-                console.log(state.course)
                 resolve(response.data)
             }).catch((error) => {
                 if (error.response.status == 422) {
                     commit('SET_ERRORS', error.response.data.errors, { root: true })
                 }
+            })
+        })
+    },
+    editCourse({ commit }, payload) {
+        return new Promise((resolve, reject) => {
+            $axios.get(`/courses/${payload}/edit`).then((response) => {
+                commit('FILL_COURSE_FORM', response.data.data)
+                resolve(response.data)
+            }).catch((error) => {
+                if (error.response.status == 422) {
+                    commit('SET_ERRORS', error.response.data.errors, { root: true })
+                }
+            })
+        })
+    },
+    updateCourse({ commit, state }, payload) {
+        return new Promise((resolve, reject) => {
+            $axios.put(`/courses/${payload}`, state.course).then((response) => {
+                commit('CLEAR_FORM_COURSE')
+                resolve(response.data)
             })
         })
     }

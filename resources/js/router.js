@@ -8,6 +8,7 @@ import Index from './pages/Index.vue'
 import IndexCourses from './pages/courses/Index.vue'
 import DataCourses from './pages/courses/DataCourses.vue'
 import AddCourse from './pages/courses/Add.vue'
+import EditCourse from './pages/courses/Edit.vue'
 import store from './store.js'
 
 Vue.use(Router)
@@ -49,9 +50,15 @@ const router = new Router({
                 },
                 {
                     path: 'add',
-                    name: 'courses.add',
+                    name: 'course.add',
                     component: AddCourse,
                     meta: { title: 'Tambah Matakuliah' }
+                },
+                {
+                    path:'edit/:id',
+                    name: 'course.edit',
+                    component: EditCourse,
+                    meta: { title: 'Edit Matakuliah' }
                 }
             ]
         }
