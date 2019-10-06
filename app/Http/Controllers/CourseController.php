@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Course;
 use App\Http\Resources\CourseCollections;
+use Illuminate\Support\Facades\DB;
 
 class CourseController extends Controller
 {
@@ -24,7 +25,7 @@ class CourseController extends Controller
             'id' => 'string|required|unique:courses',
             'name' => 'required|string|max:100',
             'description' => 'required|max:255',
-            'status'   => 'required|boolean'
+            'status'   => 'boolean'
         ]);
         Course::create($request->all());
         return response()->json(['status' => 'success', 200]);
@@ -61,4 +62,10 @@ class CourseController extends Controller
         $course->delete();
         return response()->json(['status' => 'success'], 200);
     }
+
+    public function deleteAll()
+    {
+        DB::table('courses')->delete();
+        return response()->json(['status' => 'success'], 200);
+     }
 }

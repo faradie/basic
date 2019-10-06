@@ -9,7 +9,7 @@
             <img src="/assets/img/avatar5.png" class="img-circle" alt="User Image" />
           </div>
           <div class="pull-left info">
-            <p>Alexander Pierce</p>
+            <p>{{ user.name }}</p>
             <a href="#">
               <i class="fa fa-circle text-success"></i> Role
             </a>
@@ -181,7 +181,14 @@
 </template>
 
 <script>
-export default {};
+import { mapState } from 'vuex'
+export default {
+  computed: {
+    ...mapState('auth',{
+      user: state => state.user
+    })
+  },
+};
 </script>
 
 <style>

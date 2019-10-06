@@ -22,4 +22,5 @@ Route::post('/login', 'Auth\LoginController@login');
 
 Route::group(['middleware' => 'auth:api'], function() {
     Route::resource('/courses', 'CourseController')->except(['show']);
+    Route::get('/course/deleteAll','CourseController@deleteAll');
 });

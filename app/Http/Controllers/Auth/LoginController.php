@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use App\User;
 
 class LoginController extends Controller
 {
@@ -50,7 +51,8 @@ class LoginController extends Controller
     
     if (auth()->attempt($auth)) {
         auth()->user()->update(['api_token' => Str::random(40)]);
-        return response()->json(['status' => 'success', 'data' => auth()->user()->api_token], 200);
+        $users = User::find($request->id);
+        return response()->json(['status' => 'success', 'data' => $users], 200);
     }
     return response()->json(['status' => 'failed']);
 }

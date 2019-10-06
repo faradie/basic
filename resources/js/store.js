@@ -3,10 +3,12 @@ import Vuex from 'vuex'
 
 import auth from './stores/auth.js'
 import courses from './stores/courses.js'
+import createPersistedState from 'vuex-persistedstate'
 
 Vue.use(Vuex)
 
 const store = new Vuex.Store({
+    plugins: [createPersistedState()],
     modules: {
         auth,
         courses

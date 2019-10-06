@@ -84,6 +84,14 @@ const actions = {
                 resolve(response.data)
             })
         })
+    },
+
+    dropAllCourse({commit,state}){
+        return new Promise((resolve,reject)=>{
+            $axios.get(`/course/deleteAll`).then((response)=>{
+                resolve(response.data)
+            })
+        })
     }
 }
 

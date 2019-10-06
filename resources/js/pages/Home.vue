@@ -5,11 +5,7 @@
                 Top Navigation
                 <small>Example 2.0</small>
             </h1>
-            <ol class="breadcrumb">
-                <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-                <li><a href="#">Layout</a></li>
-                <li class="active">Top Navigation</li>
-            </ol>
+            <breadcrumb></breadcrumb>
         </section>
 
         <section class="content">
@@ -37,7 +33,10 @@
     </div>
 </template>
 <script>
+import Breadcrumb from '../components/Breadcrumb.vue'
     export default {
-        
+        components:{
+            'breadcrumb': Breadcrumb
+        }
     }
 </script>

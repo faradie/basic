@@ -3,6 +3,7 @@
     <div class="panel">
       <div class="panel-heading">
         <router-link :to="{ name: 'course.add' }" class="btn btn-primary btn-sm btn-flat">Tambah</router-link>
+        <button class="btn btn-danger btn-sm btn-flat" @click="hapusAll">Hapus Semua</button>
         <div class="pull-right">
           <input type="text" class="form-control" placeholder="Cari..." v-model="search" />
         </div>
@@ -67,7 +68,7 @@ import { mapActions, mapState } from "vuex";
 export default {
   name: "DataCourses",
   methods: {
-    ...mapActions("courses", ["getCourses", "dropCourse"]),
+    ...mapActions("courses", ["getCourses", "dropCourse","dropAllCourse"]),
     deleteCourse(id) {
       this.$swal({
         title: "Yakin dihapus?",
@@ -91,6 +92,35 @@ export default {
             Toast.fire({
               type: "success",
               title: "Berhasil hapus"
+            });
+            this.getCourses();
+          });
+        }
+      });
+    },
+    hapusAll(){
+      this.$swal({
+        title: "Yakin dihapus semua?",
+        text: "Apabila terhapus tidak dapat dikembalikan seperti mantan!",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Ya Hapus semua!",
+        cancelButtonText: "Tidak"
+      }).then(result => {
+        if (result.value) {
+          this.dropAllCourse().then(() => {
+            const Toast = this.$swal.mixin({
+              toast: true,
+              position: "top-end",
+              showConfirmButton: false,
+              timer: 3000
+            });
+
+            Toast.fire({
+              type: "success",
+              title: "Berhasil hapus semua"
             });
             this.getCourses();
           });

@@ -1,18 +1,33 @@
 import $axios from '../api.js'
 
-const state = () => ({
 
+const state = () => ({
+    user: {
+        id: '',
+        name: '',
+        email: '',
+        phone: '',
+        password: '',
+    },
 })
 
 const mutations = {
-
+    FILL_AUTH_POSITION(state, payload) {
+        state.user = {
+            id: payload.id,
+            name: payload.name,
+            email: payload.email,
+            phone: payload.phone,
+            password: payload.password,
+        }
+    }
 }
 
 const actions = {
     signout({ commit }) {
         localStorage.setItem('token', null)
         commit('SET_TOKEN', null, { root: true })
-        
+
     },
     registers({ commit }, payload) {
         return new Promise((resolve, reject) => {
@@ -34,8 +49,9 @@ const actions = {
             $axios.post(`/login`, payload)
                 .then((response) => {
                     if (response.data.status == 'success') {
-                        localStorage.setItem('token', response.data.data)
-                        commit('SET_TOKEN', response.data.data, { root: true })
+                        localStorage.setItem('token', response.data.data.api_token)
+                        commit('SET_TOKEN', response.data.data.api_token, { root: true })
+                        commit('FILL_AUTH_POSITION', response.data.data)
                     } else {
                         commit('SET_ERRORS', { invalid: 'Id/Password Salah' }, { root: true })
                     }
