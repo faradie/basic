@@ -25,7 +25,15 @@
               <td class="parent-row">{{ row.item.created_at | moment("D MMMM YYYY") }}</td>
             </template>
             <template v-slot:cell(action)="row">
-              <router-link :to="{ name: 'course.edit', params: {id: row.item.id} }" class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></router-link>
+              <router-link
+                :to="{ name: 'course.edit', params: {id: row.item.id} }"
+                class="btn btn-warning btn-sm"
+              >
+                <i class="fa fa-pencil"></i>
+              </router-link>
+              <button @click="deleteCourse(row.item.id)" class="btn btn-danger btn-sm">
+                <i class="fa fa-trash"></i>
+              </button>
             </template>
           </b-table>
 
@@ -59,7 +67,36 @@ import { mapActions, mapState } from "vuex";
 export default {
   name: "DataCourses",
   methods: {
-    ...mapActions("courses", ["getCourses"])
+    ...mapActions("courses", ["getCourses", "dropCourse"]),
+    deleteCourse(id) {
+      this.$swal({
+        title: "Yakin dihapus?",
+        text: "Apabila terhapus tidak dapat dikembalikan seperti mantan!",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Ya Hapus!",
+        cancelButtonText: "Tidak"
+      }).then(result => {
+        if (result.value) {
+          this.dropCourse(id).then(() => {
+            const Toast = this.$swal.mixin({
+              toast: true,
+              position: "top-end",
+              showConfirmButton: false,
+              timer: 3000
+            });
+
+            Toast.fire({
+              type: "success",
+              title: "Berhasil hapus"
+            });
+            this.getCourses();
+          });
+        }
+      });
+    }
   },
   created() {
     this.getCourses();

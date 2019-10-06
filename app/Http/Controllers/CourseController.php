@@ -49,9 +49,16 @@ class CourseController extends Controller
         $course->update([
             'name' => $request->name,
             'description' => $request->description,
-            'status'=>$request->status
+            'status' => $request->status
         ]);
 
-        return response()->json(['status'=>'success'],200);
-     }
+        return response()->json(['status' => 'success'], 200);
+    }
+
+    public function destroy($id)
+    {
+        $course = Course::find($id);
+        $course->delete();
+        return response()->json(['status' => 'success'], 200);
+    }
 }

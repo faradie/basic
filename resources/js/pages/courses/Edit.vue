@@ -17,24 +17,35 @@
 </template>
 
 <script>
-import { mapActions,mapState } from 'vuex'
-import FormCourse from '../courses/Form.vue'
+import { mapActions, mapState } from "vuex";
+import FormCourse from "../courses/Form.vue";
 export default {
-    name: 'EditCourse',
-    methods:{
-        ...mapActions('courses',['editCourse','updateCourse']),
-        EditCourse(){
-            this.updateCourse(this.$route.params.id).then(()=>{
-                this.$router.push({ name:'courses.data' })
-            })
-        }
-    },
-    created(){
-        this.editCourse(this.$route.params.id)
-    },
-    components:{
-        'course-form':FormCourse
+  name: "EditCourse",
+  methods: {
+    ...mapActions("courses", ["editCourse", "updateCourse"]),
+    EditCourse() {
+      this.updateCourse(this.$route.params.id).then(() => {
+        const Toast = this.$swal.mixin({
+          toast: true,
+          position: "top-end",
+          showConfirmButton: false,
+          timer: 3000
+        });
+
+        Toast.fire({
+          type: "success",
+          title: "Berhasil edit"
+        });
+        this.$router.push({ name: "courses.data" });
+      });
     }
+  },
+  created() {
+    this.editCourse(this.$route.params.id);
+  },
+  components: {
+    "course-form": FormCourse
+  }
 };
 </script>
 

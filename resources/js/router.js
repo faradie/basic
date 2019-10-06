@@ -60,6 +60,7 @@ const router = new Router({
                     component: EditCourse,
                     meta: { title: 'Edit Matakuliah' }
                 }
+                
             ]
         }
     ]

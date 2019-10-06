@@ -77,6 +77,13 @@ const actions = {
                 resolve(response.data)
             })
         })
+    },
+    dropCourse({commit}, payload){
+        return new Promise((resolve,reject)=>{
+            $axios.delete(`/courses/${payload}`).then((response)=>{
+                resolve(response.data)
+            })
+        })
     }
 }
 
