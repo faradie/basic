@@ -5,10 +5,20 @@ import Home from './pages/Home.vue'
 import Login from './pages/auth/Login.vue'
 import Register from './pages/auth/Register.vue'
 import Index from './pages/Index.vue'
+
 import IndexCourses from './pages/courses/Index.vue'
 import DataCourses from './pages/courses/DataCourses.vue'
 import AddCourse from './pages/courses/Add.vue'
 import EditCourse from './pages/courses/Edit.vue'
+
+import IndexClasses from './pages/classes/Index.vue'
+import DataClasses from './pages/classes/DataClasses.vue'
+import AddClasses from './pages/classes/Add.vue'
+
+import Users from './pages/users/Index.vue'
+import DataUsers from './pages/users/DataUsers.vue'
+import UserSettings from './pages/users/UserSetting.vue'
+
 import store from './store.js'
 
 Vue.use(Router)
@@ -41,6 +51,7 @@ const router = new Router({
         {
             path: '/courses',
             component: IndexCourses,
+            meta: { requiresAuth: true },
             children: [
                 {
                     path: '',
@@ -61,6 +72,44 @@ const router = new Router({
                     meta: { title: 'Edit Matakuliah' }
                 }
                 
+            ]
+        },
+        {
+            path:'/classes',
+            component: IndexClasses,
+            meta: { requiresAuth: true },
+            children:[
+                {
+                    path:'',
+                    name: 'classes.data',
+                    component: DataClasses,
+                    meta: { title: 'Kelola Kelas' }
+                },
+                {
+                    path: 'add',
+                    name: 'classes.add',
+                    component: AddClasses,
+                    meta: { title: 'Tambah Kelas' }
+                },
+            ]
+        },
+        {
+            path: '/users',
+            component: Users,
+            meta: { requiresAuth :true },
+            children:[
+                {
+                    path:'',
+                    name: 'users.data',
+                    component: DataUsers,
+                    meta:{ title:'Data Pengguna' }
+                },
+                {
+                    path:'settings/:id',
+                    name:'user.settings',
+                    component: UserSettings,
+                    meta: { title:'Atur Pengguna' }
+                }
             ]
         }
     ]

@@ -3,7 +3,7 @@
     <div class="panel">
       <div class="panel-heading">
         <router-link :to="{ name: 'course.add' }" class="btn btn-primary btn-sm btn-flat">Tambah</router-link>
-        <button class="btn btn-danger btn-sm btn-flat" @click="hapusAll">Hapus Semua</button>
+        <button class="btn btn-danger btn-sm btn-flat" v-if="courses.data && courses.data.length > 0" @click="hapusAll">Hapus Semua</button>
         <div class="pull-right">
           <input type="text" class="form-control" placeholder="Cari..." v-model="search" />
         </div>
@@ -159,6 +159,9 @@ export default {
   watch: {
     page() {
       this.getCourses();
+    },
+    search(){
+      this.getCourses(this.search)
     }
   }
 };

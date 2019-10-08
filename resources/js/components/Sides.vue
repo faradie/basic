@@ -28,27 +28,20 @@
           </li>
           <li class="header">Master</li>
           <li>
-            <router-link :to="{ name:'courses.data' }">
+            <router-link data-toggle="push-menu" :to="{ name:'courses.data' }">
               <a>
                 <i class="fa fa-files-o"></i>
                 <span>Matakuliah</span>
               </a>
             </router-link>
           </li>
+
           <li>
-            <a href="pages/widgets.html">
-              <i class="fa fa-book"></i>
-              <span>Materi</span>
-            </a>
-          </li>
-          <li>
-            <a href="pages/widgets.html">
-              <i class="fa fa-files-o"></i>
+            <a @click="check">
+              <i class="fa fa-th"></i>
               <span>Kategori</span>
             </a>
           </li>
-
-          <li class="header">Kelola</li>
           <li>
             <a href="pages/widgets.html">
               <i class="fa fa-info-circle"></i>
@@ -56,16 +49,20 @@
             </a>
           </li>
           <li>
-            <a href="pages/widgets.html">
-              <i class="fa fa-graduation-cap"></i>
-              <span>Kelas</span>
-            </a>
+            <router-link data-toggle="push-menu" :to="{ name:'classes.data' }">
+              <a>
+                <i class="fa fa-graduation-cap"></i>
+                <span>Kelas</span>
+              </a>
+            </router-link>
           </li>
           <li>
-            <a href="pages/widgets.html">
-              <i class="fa fa-group"></i>
-              <span>Pengguna</span>
-            </a>
+            <router-link data-toggle="push-menu" :to="{ name:'users.data' }">
+              <a>
+                <i class="fa fa-group"></i>
+                <span>Pengguna</span>
+              </a>
+            </router-link>
           </li>
           <li class="treeview">
             <a href="#">
@@ -129,6 +126,21 @@
               </li>
             </ul>
           </li>
+
+          <li class="header">Dosen</li>
+          <li>
+            <a href="pages/widgets.html">
+              <i class="fa fa-random"></i>
+              <span>Presensi</span>
+            </a>
+          </li>
+          <li>
+            <a href="pages/widgets.html">
+              <i class="fa fa-book"></i>
+              <span>Materi</span>
+            </a>
+          </li>
+
           <li class="header">Praktikan</li>
 
           <li class="treeview">
@@ -181,13 +193,18 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState } from "vuex";
 export default {
+  methods: {
+    check() {
+      console.log(localStorage.getItem("token"));
+    }
+  },
   computed: {
-    ...mapState('auth',{
+    ...mapState("auth", {
       user: state => state.user
     })
-  },
+  }
 };
 </script>
 

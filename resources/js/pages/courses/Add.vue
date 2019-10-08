@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import { mapActions,mapState } from 'vuex'
+import { mapActions } from 'vuex'
 import FormCourse from '../courses/Form.vue'
 export default {
     name: 'AddCourse',

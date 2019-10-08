@@ -1,6 +1,5 @@
 import $axios from '../api.js'
 
-
 const state = () => ({
     user: {
         id: '',
@@ -24,23 +23,6 @@ const mutations = {
 }
 
 const actions = {
-    signout({ commit }) {
-        localStorage.setItem('token', null)
-        commit('SET_TOKEN', null, { root: true })
-
-    },
-    registers({ commit }, payload) {
-        return new Promise((resolve, reject) => {
-            $axios.post(`/register`, payload).then((response) => {
-                resolve(response.data)
-                this.$router.push({ name: 'index' })
-            }).catch((error) => {
-                if (error.response.status == 422) {
-                    commit('SET_ERRORS', error.response.data.errors, { root: true })
-                }
-            })
-        })
-    },
     submit({ commit }, payload) {
         localStorage.setItem('token', null)
         commit('SET_TOKEN', null, { root: true })
@@ -63,7 +45,25 @@ const actions = {
                     }
                 })
         })
-    }
+    },
+    signout({ commit }) {
+        localStorage.setItem('token', null)
+        localStorage.removeItem('basicState')
+        commit('SET_TOKEN', null, { root: true })
+    },
+    registers({ commit }, payload) {
+        return new Promise((resolve, reject) => {
+            $axios.post(`/register`, payload).then((response) => {
+                resolve(response.data)
+                this.$router.push({ name: 'index' })
+            }).catch((error) => {
+                if (error.response.status == 422) {
+                    commit('SET_ERRORS', error.response.data.errors, { root: true })
+                }
+            })
+        })
+    },
+
 }
 
 export default {

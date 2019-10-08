@@ -52,13 +52,13 @@
           <li v-if="isAuth" class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <img src="/assets/img/avatar5.png" class="user-image" alt="User Image" />
-              <span class="hidden-xs">Alexander Pierce</span>
+              <span class="hidden-xs">{{ user.id }}</span>
             </a>
             <ul class="dropdown-menu">
               <li class="user-header">
                 <p>
-                  Alexander Pierce - Web Developer
-                  <small>Member since Nov. 2012</small>
+                  {{ user.name }}
+                  <small>{{ user.email }}</small>
                 </p>
               </li>
               <li class="user-body">
@@ -97,7 +97,10 @@
 import { mapState, mapGetters, mapActions, mapMutations } from "vuex";
 export default {
   computed: {
-    ...mapState(["token"]),
+    ...mapState(["token"],),
+    ...mapState('auth', {
+      user: state => state.user
+    }),
     ...mapGetters(["isAuth"])
   },
   methods:{

@@ -11,7 +11,7 @@
         <p class="login-box-msg">Jangan lupa baca belajar</p>
 
         <div class="form-group has-feedback" :class="{'has-error': errors.id}">
-          <input type="text" class="form-control" placeholder="Id Pengguna" v-model="data.id" />
+          <input type="text" @keyup.enter="pushLogin" class="form-control" placeholder="Id Pengguna" v-model="data.id" />
           <span class="glyphicon glyphicon-user form-control-feedback"></span>
           <p class="text-danger" v-if="errors.id">{{ errors.id[0] }}</p>
         </div>
@@ -20,6 +20,7 @@
             type="password"
             class="form-control"
             placeholder="Password"
+            @keyup.enter="pushLogin" 
             v-model="data.password"
           />
           <span class="glyphicon glyphicon-lock form-control-feedback"></span>

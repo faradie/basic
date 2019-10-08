@@ -28,7 +28,7 @@
           <p class="text-danger" v-if="errors.email">{{ errors.email[0] }}</p>
         </div>
         <div class="form-group has-feedback" :class="{'has-error': errors.phone}">
-          <input type="number" class="form-control" placeholder="No Telepon" v-model="data.phone" />
+          <input type="number" @input="filterInput" class="form-control" placeholder="No Telepon" v-model="data.phone" />
           <span class="glyphicon glyphicon-phone form-control-feedback"></span>
           <p class="text-danger" v-if="errors.phone">{{ errors.phone[0] }}</p>
         </div>
@@ -111,6 +111,9 @@ export default {
         this.CLEAR_ERRORS();
         this.$router.push({ name: "index" });
       });
+    },
+    filterInput(e){
+      e.target.value = e.target.value.replace(/[^0-9]+/g, '');
     }
   },
   destroyed() {

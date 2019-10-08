@@ -55,6 +55,7 @@ const actions = {
                 if (error.response.status == 422) {
                     commit('SET_ERRORS', error.response.data.errors, { root: true })
                 }
+                console.log(error)
             })
         })
     },
@@ -75,20 +76,24 @@ const actions = {
             $axios.put(`/courses/${payload}`, state.course).then((response) => {
                 commit('CLEAR_FORM_COURSE')
                 resolve(response.data)
+            }).catch((error) => {
+                if (error.response.status == 422) {
+                    commit('SET_ERRORS', error.response.data.errors, { root: true })
+                }
             })
         })
     },
-    dropCourse({commit}, payload){
-        return new Promise((resolve,reject)=>{
-            $axios.delete(`/courses/${payload}`).then((response)=>{
+    dropCourse({ commit }, payload) {
+        return new Promise((resolve, reject) => {
+            $axios.delete(`/courses/${payload}`).then((response) => {
                 resolve(response.data)
             })
         })
     },
 
-    dropAllCourse({commit,state}){
-        return new Promise((resolve,reject)=>{
-            $axios.get(`/course/deleteAll`).then((response)=>{
+    dropAllCourse({ commit, state }) {
+        return new Promise((resolve, reject) => {
+            $axios.get(`/course/deleteAll`).then((response) => {
                 resolve(response.data)
             })
         })
