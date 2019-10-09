@@ -21,6 +21,17 @@ const actions = {
                 console.log(error)
             })
         })
+    },
+
+    getCoursesAndLectures({commit,state}){
+        return new Promise((resolve,reject)=>{
+            $axios.get(`/classes/get-mk_ds`).then((response)=>{
+                commit('COURSES_LECTURES_DATA',response.data);
+                resolve(response.data)
+            }).catch((error)=>{
+                console.log(error)
+            })
+        })
     }
 }
 

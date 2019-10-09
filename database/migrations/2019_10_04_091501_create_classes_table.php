@@ -18,6 +18,7 @@ class CreateClassesTable extends Migration
             $table->string('lecture_id');
             $table->string('course_id');
             $table->string('day');
+            $table->string('minor');
             $table->time('start_time');
             $table->time('end_time');
             $table->timestampTz('contract_time');

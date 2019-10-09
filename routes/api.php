@@ -20,15 +20,19 @@ use Illuminate\Http\Request;
 Route::post('/register', 'Auth\RegisterController@register');
 Route::post('/login', 'Auth\LoginController@login');
 
-Route::get('/roles/{id}', 'RolePermissionController@getUserRole')->name('get_user_role');
-Route::get('/roles', 'RolePermissionController@getAllRole')->name('roles');
-Route::get('/permissions', 'RolePermissionController@getAllPermission')->name('permission');
-Route::get('/permissions/{id}', 'RolePermissionController@getUserPermissions')->name('get_user_permissions');
-Route::post('role-permission', 'RolePermissionController@getRolePermission')->name('role_permission');
-Route::post('/set-role-permissions', 'RolePermissionController@setRolePermission')->name('set_role_permission');
 
 Route::group(['middleware' => 'auth:api'], function () {
     Route::resource('/users', 'UsersController')->except(['show']);
     Route::resource('/courses', 'CourseController')->except(['show']);
     Route::get('/course/deleteAll', 'CourseController@deleteAll');
+
+    Route::resource('/classes', 'ClassController')->except(['show']);
+    Route::get('/classes/get-mk_ds', 'ClassController@get_mk_ds')->name('get_mk_ds');
+
+    Route::get('/roles/{id}', 'RolePermissionController@getUserRole')->name('get_user_role');
+    Route::get('/roles', 'RolePermissionController@getAllRole')->name('roles');
+    Route::get('/permissions', 'RolePermissionController@getAllPermission')->name('permission');
+    Route::get('/permissions/{id}', 'RolePermissionController@getUserPermissions')->name('get_user_permissions');
+    Route::post('role-permission', 'RolePermissionController@getRolePermission')->name('role_permission');
+    Route::post('/set-role-permissions', 'RolePermissionController@setRolePermission')->name('set_role_permission');
 });

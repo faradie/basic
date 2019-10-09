@@ -1,5 +1,6 @@
 //IMPORT SECTION
 import Vue from 'vue'
+
 import Router from 'vue-router'
 import Home from './pages/Home.vue'
 import Login from './pages/auth/Login.vue'
@@ -129,5 +130,7 @@ router.beforeEach((to, from, next) => {
         next()
     }
 })
+
+
 
 export default router
