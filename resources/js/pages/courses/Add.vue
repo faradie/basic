@@ -31,6 +31,17 @@ export default {
         submit(){
             this.createCourse().then(()=>{
                 this.$router.push({ name: 'courses.data' })
+                const Toast = this.$swal.mixin({
+            toast: true,
+            position: "top-end",
+            showConfirmButton: false,
+            timer: 3000
+          });
+
+          Toast.fire({
+            type: "success",
+            title: "Berhasil tambah matakuliah!"
+          });
             })
         }
     },

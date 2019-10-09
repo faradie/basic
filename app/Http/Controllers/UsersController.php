@@ -15,7 +15,7 @@ class UsersController extends Controller
             $users = $users->where('name', 'LIKE', '%' . request()->key . '%');
         }
 
-        return new UserCollections($users->paginate(3));
+        return new UserCollections($users->paginate(10));
     }
     public function edit($id)
     {

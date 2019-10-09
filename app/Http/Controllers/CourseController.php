@@ -16,7 +16,7 @@ class CourseController extends Controller
             $courses = $courses->where('name', 'LIKE', '%' . request()->key . '%');
         }
 
-        return new CourseCollections($courses->paginate(3));
+        return new CourseCollections($courses->paginate(10));
     }
 
     public function store(Request $request)

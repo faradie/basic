@@ -34,7 +34,7 @@ export default {
 
         Toast.fire({
           type: "success",
-          title: "Berhasil edit"
+          title: "Berhasil edit matakuliah!"
         });
         this.$router.push({ name: "courses.data" });
       });

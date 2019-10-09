@@ -201,7 +201,7 @@ export default {
             this.loading = false;
             this.alert_permission = false;
             this.CLEAR_ROLE_PERMISSION();
-            setTimeout(() => this.$router.push({ name: "users.data" }), 1500);
+            setTimeout(() => this.$router.push({ name: "users.data" }), 1000);
           }, 1000);
         }
       });

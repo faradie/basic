@@ -23,7 +23,7 @@
     </div>
     <div class="form-group">
       <input type="checkbox" v-model="course.status" />
-      <label for> {{ course.status == true ? "Aktif" : "Tidak aktif" }} </label>
+      <label for>{{ course.status == true ? "Aktif" : "Tidak aktif" }}</label>
     </div>
   </div>
 </template>

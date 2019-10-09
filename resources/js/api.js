@@ -15,18 +15,23 @@ const $axios = axios.create({
     }
 });
 
-Vue.http.interceptors.push(function(request, next) {
+Vue.http.interceptors.push(function (request, next) {
     // continue to next interceptor
-    next(function(response) {
-        console.log(response)
-        if(response.status == 401){
-            $router.push({ name:'login' })
-            return response
+    next((response) => {
+        if (response.status == 401) {
+            localStorage.setItem('token', null)
+            localStorage.removeItem('basicState')
+            commit('SET_TOKEN', null, { root: true })
+            auth.logout();
+            $router.push({ name: 'login' })
         }
     });
- });
-
-
+    // next(function(response) {
+    //     if(response.status == 401){
+    //         return response
+    //     }
+    // });
+});
 
 $axios.interceptors.request.use(
     function (config) {
@@ -36,9 +41,11 @@ $axios.interceptors.request.use(
     },
     function (error) {
         return Promise.reject(error);
-        
+
     }
 );
+
+
 
 
 export default $axios;

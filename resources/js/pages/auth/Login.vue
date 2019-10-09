@@ -11,7 +11,13 @@
         <p class="login-box-msg">Jangan lupa baca belajar</p>
 
         <div class="form-group has-feedback" :class="{'has-error': errors.id}">
-          <input type="text" @keyup.enter="pushLogin" class="form-control" placeholder="Id Pengguna" v-model="data.id" />
+          <input
+            type="text"
+            @keyup.enter="pushLogin"
+            class="form-control"
+            placeholder="Id Pengguna"
+            v-model="data.id"
+          />
           <span class="glyphicon glyphicon-user form-control-feedback"></span>
           <p class="text-danger" v-if="errors.id">{{ errors.id[0] }}</p>
         </div>
@@ -20,7 +26,7 @@
             type="password"
             class="form-control"
             placeholder="Password"
-            @keyup.enter="pushLogin" 
+            @keyup.enter="pushLogin"
             v-model="data.password"
           />
           <span class="glyphicon glyphicon-lock form-control-feedback"></span>
@@ -57,7 +63,7 @@ export default {
     return {
       data: {
         id: "",
-        password: "",
+        password: ""
       }
     };
   },
@@ -71,7 +77,7 @@ export default {
     ...mapState(["errors"])
   },
   methods: {
-    ...mapActions("auth", ["submit"]), 
+    ...mapActions("auth", ["submit"]),
     ...mapMutations(["CLEAR_ERRORS"]),
 
     pushLogin() {
@@ -79,11 +85,22 @@ export default {
         if (this.isAuth) {
           this.CLEAR_ERRORS();
           this.$router.push({ name: "home" });
+          const Toast = this.$swal.mixin({
+            toast: true,
+            position: "top-end",
+            showConfirmButton: false,
+            timer: 3000
+          });
+
+          Toast.fire({
+            type: "success",
+            title: "Selamat Datang!"
+          });
         }
       });
     }
   },
-  destroyed(){
+  destroyed() {
     this.CLEAR_ERRORS();
   }
 };

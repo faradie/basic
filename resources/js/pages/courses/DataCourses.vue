@@ -91,7 +91,7 @@ export default {
 
             Toast.fire({
               type: "success",
-              title: "Berhasil hapus"
+              title: "Berhasil hapus matakuliah!"
             });
             this.getCourses();
           });

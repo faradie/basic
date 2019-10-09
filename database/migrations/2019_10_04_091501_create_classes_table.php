@@ -18,10 +18,10 @@ class CreateClassesTable extends Migration
             $table->string('lecture_id');
             $table->string('course_id');
             $table->string('day');
-            $table->string('minor');
+            $table->string('attrib');
             $table->time('start_time');
             $table->time('end_time');
-            $table->timestampTz('contract_time');
+            // $table->timestampTz('contract_time');
             $table->timestamps();
 
             $table->foreign('lecture_id')->references('id')->on('users')->onDelete('CASCADE');

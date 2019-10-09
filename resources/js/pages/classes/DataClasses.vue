@@ -12,20 +12,19 @@
         <div class="table-responsive">
           <b-table striped hover bordered :items="classes.data" :fields="fields" show-empty>
             <template v-slot:cell(mk)="row">
-              <td class="parent-row">{{ row.item.id }}</td>
+              <td class="parent-row">{{ row.item.course.name }}</td>
             </template>
             <template v-slot:cell(class)="row">
-              <td class="parent-row">{{ row.item.name }}</td>
+              <td class="parent-row">{{ row.item.attrib }}</td>
             </template>
             <template v-slot:cell(day)="row">
-              <a class="btn btn-success btn-flat disabled" v-if="row.item.status == 1">Aktif</a>
-              <a class="btn btn-default btn-flat disabled" v-else>NonAktif</a>
+              <td class="parent-row">{{ row.item.day }}</td>
             </template>
             <template v-slot:cell(session)="row">
-              <td class="parent-row">{{ row.item.created_at | moment("D MMMM YYYY") }}</td>
+              <td class="parent-row">{{ row.item.start_time }} - {{ row.item.end_time }}</td>
             </template>
             <template v-slot:cell(lectur)="row">
-              <td class="parent-row">{{ row.item.created_at | moment("D MMMM YYYY") }}</td>
+              <td class="parent-row">{{ row.item.lecture.name }}</td>
             </template>
             <template v-slot:cell(action)="row">
               <!-- <router-link
