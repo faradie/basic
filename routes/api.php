@@ -20,7 +20,6 @@ use Illuminate\Http\Request;
 Route::post('/register', 'Auth\RegisterController@register');
 Route::post('/login', 'Auth\LoginController@login');
 
-Route::resource('/classes', 'ClassController')->except(['show']);
 
 
 Route::group(['middleware' => 'auth:api'], function () {
@@ -28,7 +27,9 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::resource('/courses', 'CourseController')->except(['show']);
     Route::get('/course/deleteAll', 'CourseController@deleteAll');
 
+    Route::resource('/classes', 'ClassController')->except(['show']);
     Route::get('/classes/get-mk_ds', 'ClassController@get_mk_ds')->name('get_mk_ds');
+    Route::get('/classes/deleteAll', 'ClassController@deleteAllClasses');
 
     Route::get('/roles/{id}', 'RolePermissionController@getUserRole')->name('get_user_role');
     Route::get('/roles', 'RolePermissionController@getAllRole')->name('roles');

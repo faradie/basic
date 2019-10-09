@@ -3,7 +3,7 @@
     <div class="panel">
       <div class="panel-heading">
         <router-link :to="{ name:'classes.add' }" class="btn btn-primary btn-sm btn-flat">Tambah</router-link>
-        <button class="btn btn-danger btn-sm btn-flat" >Hapus Semua</button>
+        <button @click="dropAllClasses" class="btn btn-danger btn-sm btn-flat">Hapus Semua</button>
         <div class="pull-right">
           <input type="text" class="form-control" placeholder="Cari..." v-model="search" />
         </div>
@@ -27,12 +27,13 @@
               <td class="parent-row">{{ row.item.lecture.name }}</td>
             </template>
             <template v-slot:cell(action)="row">
-              <!-- <router-link
+              <router-link
+                :to="{ name: 'classes.edit', params: { id:row.item.id } }"
                 class="btn btn-warning btn-sm"
               >
                 <i class="fa fa-pencil"></i>
-              </router-link> -->
-              <button class="btn btn-danger btn-sm">
+              </router-link>
+              <button @click="dropClass(row.item.id)" class="btn btn-danger btn-sm">
                 <i class="fa fa-trash"></i>
               </button>
             </template>
@@ -48,7 +49,65 @@ import { mapActions, mapState } from "vuex";
 export default {
   name: "DataClasses",
   methods: {
-    ...mapActions("classes", ["getClass"])
+    ...mapActions("classes", ["getClass", "deleteClass","deleteAllClasses"]),
+    dropClass(val) {
+      this.$swal({
+        title: "Yakin dihapus?",
+        text: "Apabila terhapus tidak dapat dikembalikan seperti mantan!",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Ya Hapus!",
+        cancelButtonText: "Tidak"
+      }).then(result => {
+        if (result.value) {
+          this.deleteClass(val).then(() => {
+            const Toast = this.$swal.mixin({
+              toast: true,
+              position: "top-end",
+              showConfirmButton: false,
+              timer: 3000
+            });
+
+            Toast.fire({
+              type: "success",
+              title: "Berhasil hapus kelas!"
+            });
+            this.getClass();
+          });
+        }
+      });
+    },
+    dropAllClasses(){
+      this.$swal({
+        title: "Yakin dihapus?",
+        text: "Apabila terhapus tidak dapat dikembalikan seperti mantan!",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Ya Hapus!",
+        cancelButtonText: "Tidak"
+      }).then(result => {
+        if (result.value) {
+          this.deleteAllClasses().then(() => {
+            const Toast = this.$swal.mixin({
+              toast: true,
+              position: "top-end",
+              showConfirmButton: false,
+              timer: 3000
+            });
+
+            Toast.fire({
+              type: "success",
+              title: "Berhasil hapus kelas!"
+            });
+            this.getClass();
+          });
+        }
+      });
+    }
   },
   created() {
     this.getClass();

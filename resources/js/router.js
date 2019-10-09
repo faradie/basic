@@ -15,6 +15,7 @@ import EditCourse from './pages/courses/Edit.vue'
 import IndexClasses from './pages/classes/Index.vue'
 import DataClasses from './pages/classes/DataClasses.vue'
 import AddClasses from './pages/classes/Add.vue'
+import EditClasses from './pages/classes/Edit.vue'
 
 import Users from './pages/users/Index.vue'
 import DataUsers from './pages/users/DataUsers.vue'
@@ -91,6 +92,12 @@ const router = new Router({
                     name: 'classes.add',
                     component: AddClasses,
                     meta: { title: 'Tambah Kelas' }
+                },
+                {
+                    path: 'edit/:id',
+                    name: 'classes.edit',
+                    component: EditClasses,
+                    meta: { title: 'Edit Kelas' }
                 },
             ]
         },
