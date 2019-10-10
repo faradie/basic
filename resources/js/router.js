@@ -17,9 +17,14 @@ import DataClasses from './pages/classes/DataClasses.vue'
 import AddClasses from './pages/classes/Add.vue'
 import EditClasses from './pages/classes/Edit.vue'
 
+import IndexInformations from './pages/informations/Index.vue'
+import InformationsData from './pages/informations/InformationsData.vue'
+
 import Users from './pages/users/Index.vue'
 import DataUsers from './pages/users/DataUsers.vue'
 import UserSettings from './pages/users/UserSetting.vue'
+
+import IndexCategories from './pages/categories/Index.vue'
 
 import store from './store.js'
 
@@ -68,21 +73,21 @@ const router = new Router({
                     meta: { title: 'Tambah Matakuliah' }
                 },
                 {
-                    path:'edit/:id',
+                    path: 'edit/:id',
                     name: 'course.edit',
                     component: EditCourse,
                     meta: { title: 'Edit Matakuliah' }
                 }
-                
+
             ]
         },
         {
-            path:'/classes',
+            path: '/classes',
             component: IndexClasses,
             meta: { requiresAuth: true },
-            children:[
+            children: [
                 {
-                    path:'',
+                    path: '',
                     name: 'classes.data',
                     component: DataClasses,
                     meta: { title: 'Kelola Kelas' }
@@ -104,21 +109,41 @@ const router = new Router({
         {
             path: '/users',
             component: Users,
-            meta: { requiresAuth :true },
-            children:[
+            meta: { requiresAuth: true },
+            children: [
                 {
-                    path:'',
+                    path: '',
                     name: 'users.data',
                     component: DataUsers,
-                    meta:{ title:'Data Pengguna' }
+                    meta: { title: 'Data Pengguna' }
                 },
                 {
-                    path:'settings/:id',
-                    name:'user.settings',
+                    path: 'settings/:id',
+                    name: 'user.settings',
                     component: UserSettings,
-                    meta: { title:'Atur Pengguna' }
+                    meta: { title: 'Atur Pengguna' }
                 }
             ]
+        },
+        {
+            path: '/informations',
+            component: IndexInformations,
+            meta: { requiresAuth: true },
+            children: [
+                {
+                    path: '',
+                    name: 'informations.data',
+                    component: InformationsData,
+                    meta: { title: 'Data Informasi' }
+                }
+            ]
+        },
+        {
+            path: '/categories',
+            name: 'categories',
+            component: IndexCategories,
+            meta: { requiresAuth: true, title: 'Kelola Kategori' },
+
         }
     ]
 });

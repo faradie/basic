@@ -5,7 +5,6 @@
                 Top Navigation
                 <small>Example 2.0</small>
             </h1>
-            <breadcrumb></breadcrumb>
         </section>
 
         <section class="content">

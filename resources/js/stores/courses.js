@@ -56,6 +56,7 @@ const actions = {
     },
     createCourse({ commit, state }, payload) {
         return new Promise((resolve, reject) => {
+            commit('CLEAR_ERRORS', '', {root: true})
             $axios.post('/courses', state.course).then((response) => {
                 resolve(response.data)
             }).catch((error) => {
@@ -89,6 +90,7 @@ const actions = {
     },
     updateCourse({ commit, state }, payload) {
         return new Promise((resolve, reject) => {
+            commit('CLEAR_ERRORS', '', {root: true})
             $axios.put(`/courses/${payload}`, state.course).then((response) => {
                 commit('CLEAR_FORM_COURSE')
                 resolve(response.data)

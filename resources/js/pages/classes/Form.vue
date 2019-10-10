@@ -13,7 +13,7 @@
        <div class="col-sm-6">
         <div class="form-group">
           <label for>Matakuliah</label>
-          <select class="form-control" v-model="classField.course_id">
+          <select class="form-control" :class="{ 'has-error': errors.course_id }" v-model="classField.course_id">
             <option value>Pilih</option>
             <option
               v-for="row in courses"
@@ -21,13 +21,13 @@
               :key="row.id"
             >{{ row.name.charAt(0).toUpperCase() + row.name.slice(1) }}</option>
           </select>
-          <p class="text-danger" v-if="errors.role_id">{{ errors.role_id[0] }}</p>
+          <p class="text-danger" v-if="errors.course_id">{{ errors.course_id[0] }}</p>
         </div>
       </div>
       <div class="col-sm-6">
         <div class="form-group">
           <label for>Dosen</label>
-          <select class="form-control" v-model="classField.lecture_id">
+          <select class="form-control" :class="{ 'has-error': errors.lecture_id }" v-model="classField.lecture_id">
             <option value>Pilih</option>
             <option
               v-for="row in lectures"
@@ -35,7 +35,7 @@
               :key="row.id"
             >{{ row.name.charAt(0).toUpperCase() + row.name.slice(1) }}</option>
           </select>
-          <p class="text-danger" v-if="errors.role_id">{{ errors.role_id[0] }}</p>
+          <p class="text-danger" v-if="errors.lecture_id">{{ errors.lecture_id[0] }}</p>
         </div>
       </div>
     </div>
@@ -43,7 +43,7 @@
       <div class="col-sm-6">
         <div class="form-group">
           <label for>Hari</label>
-          <select class="form-control" v-model="classField.day">
+          <select class="form-control" :class="{ 'has-error': errors.day }" v-model="classField.day">
             <option value>Pilih</option>
             <option
               v-for="row in optionsDays"
@@ -51,11 +51,11 @@
               :key="row.value"
             >{{ row.text.charAt(0).toUpperCase() + row.text.slice(1) }}</option>
           </select>
-          <p class="text-danger" v-if="errors.role_id">{{ errors.role_id[0] }}</p>
+          <p class="text-danger" v-if="errors.day">{{ errors.day[0] }}</p>
         </div>
       </div>
       <div class="col-sm-6">
-        <div class="form-group" :class="{ 'has-error': errors.id }">
+        <div class="form-group" :class="{ 'has-error': errors.attrib }">
           <label for>Kelas</label>
           <input
             placeholder="A, B, C ..."
@@ -64,7 +64,7 @@
             v-model="classField.attrib"
             :readonly="$route.name == 'course.edit'"
           />
-          <p class="text-danger" v-if="errors.id">{{ errors.id[0] }}</p>
+          <p class="text-danger" v-if="errors.attrib">{{ errors.attrib[0] }}</p>
         </div>
       </div>
     </div>
@@ -74,8 +74,8 @@
         <div class="col-sm-6">
           <div class="form-group">
             <div class="row">
-              <vue-timepicker v-model="classField.start_time" placeholder="Waktu Mulai"></vue-timepicker>
-              <p class="text-danger" v-if="errors.role_id">{{ errors.role_id[0] }}</p>
+              <vue-timepicker  v-model="classField.start_time" placeholder="Waktu Mulai"></vue-timepicker>
+              <p class="text-danger" v-if="errors.start_time">{{ errors.start_time[0] }}</p>
             </div>
           </div>
         </div>
@@ -83,7 +83,7 @@
           <div class="form-group">
             <div class="row">
               <vue-timepicker v-model="classField.end_time" placeholder="Waktu Selesai"></vue-timepicker>
-              <p class="text-danger" v-if="errors.role_id">{{ errors.role_id[0] }}</p>
+              <p class="text-danger" v-if="errors.end_time">{{ errors.end_time[0] }}</p>
             </div>
           </div>
         </div>

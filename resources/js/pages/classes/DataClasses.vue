@@ -28,7 +28,7 @@
             </template>
             <template v-slot:cell(action)="row">
               <router-link
-                :to="{ name: 'classes.edit', params: { id:row.item.id } }"
+                @click="dropClass(row.item.id)"
                 class="btn btn-warning btn-sm"
               >
                 <i class="fa fa-pencil"></i>

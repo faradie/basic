@@ -7,6 +7,8 @@ const state = () => ({
         email: '',
         phone: '',
         password: '',
+        role:'',
+        permissions:[]
     },
 })
 
@@ -18,6 +20,8 @@ const mutations = {
             email: payload.email,
             phone: payload.phone,
             password: payload.password,
+            role:payload.roles[0].name,
+            permissions:payload.permissions
         }
     }
 }

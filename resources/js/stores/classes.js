@@ -71,6 +71,7 @@ const actions = {
 
     addClasses({ commit, state }) {
         return new Promise((resolve, reject) => {
+            commit('CLEAR_ERRORS', '', {root: true})
             $axios.post(`/classes`, state.classField).then((response) => {
                 resolve(response.data)
             }).catch((error) => {
@@ -97,6 +98,7 @@ const actions = {
 
     updateClass({ commit, state }, payload) {
         return new Promise((resolve, reject) => {
+            commit('CLEAR_ERRORS', '', {root: true})
             $axios.put(`/classes/${payload}`, state.classField).then((response) => {
                 commit('CLEAR_FORM_CLASS')
                 resolve(response.data)

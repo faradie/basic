@@ -51,8 +51,10 @@ class LoginController extends Controller
     
     if (auth()->attempt($auth)) {
         auth()->user()->update(['api_token' => Str::random(40)]);
-        $users = User::find($request->id);
-        return response()->json(['status' => 'success', 'data' => $users], 200);
+        $user = User::find($request->id);
+        $role = $user->getRoleNames();
+        $permissions = $user->getAllPermissions();
+        return response()->json(['status' => 'success', 'data' => $user,'role' => $role, 'permissions' => $permissions], 200);
     }
     return response()->json(['status' => 'failed']);
 }
