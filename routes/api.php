@@ -27,6 +27,8 @@ Route::group(['middleware' => 'auth:api'], function () {
 
     Route::resource('/categories','CategoriesController')->except(['show']);
 
+    Route::resource('/informations','InformationsController')->except(['show']);
+
     Route::resource('/courses', 'CourseController')->except(['show']);
     Route::get('/course/deleteAll', 'CourseController@deleteAll');
 

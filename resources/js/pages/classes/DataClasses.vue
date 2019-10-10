@@ -5,7 +5,7 @@
         <router-link :to="{ name:'classes.add' }" class="btn btn-primary btn-sm btn-flat">Tambah</router-link>
         <button @click="dropAllClasses" class="btn btn-danger btn-sm btn-flat">Hapus Semua</button>
         <div class="pull-right">
-          <input type="text" class="form-control" placeholder="Cari..." v-model="search" />
+          <input type="text" class="form-control" placeholder="Cari kode dosen" @keyup.enter="getSearch" v-model="search" />
         </div>
       </div>
       <div class="panel-body">
@@ -28,7 +28,7 @@
             </template>
             <template v-slot:cell(action)="row">
               <router-link
-                @click="dropClass(row.item.id)"
+                :to="{ name: 'classes.edit', params: { id:row.item.id } }"
                 class="btn btn-warning btn-sm"
               >
                 <i class="fa fa-pencil"></i>
@@ -38,6 +38,26 @@
               </button>
             </template>
           </b-table>
+
+          <div class="row">
+            <div class="col-md-6">
+              <p v-if="classes.data">
+                <i class="fa fa-bars"></i>
+                {{ classes.data.length }} kelas dari {{ classes.meta.total }} total kelas
+              </p>
+            </div>
+            <div class="col-md-6">
+              <div class="pull-right">
+                <b-pagination
+                  v-model="page"
+                  :total-rows="classes.meta.total"
+                  :per-page="classes.meta.per_page"
+                  aria-controls="classes"
+                  v-if="classes.data && classes.data.length > 0"
+                ></b-pagination>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -50,6 +70,9 @@ export default {
   name: "DataClasses",
   methods: {
     ...mapActions("classes", ["getClass", "deleteClass","deleteAllClasses"]),
+    getSearch(){
+      this.getClass(this.search)
+    },
     dropClass(val) {
       this.$swal({
         title: "Yakin dihapus?",
@@ -115,7 +138,15 @@ export default {
   computed: {
     ...mapState("classes", {
       classes: state => state.classes
-    })
+    }),
+    page: {
+      get() {
+        return this.$store.state.classes.page;
+      },
+      set(val) {
+        this.$store.commit("classes/SET_PAGE", val);
+      }
+    }
   },
   data() {
     return {
@@ -129,7 +160,12 @@ export default {
       ],
       search: ""
     };
-  }
+  },
+  watch: {
+    page() {
+      this.getClass();
+    },
+  },
 };
 </script>
 

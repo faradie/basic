@@ -13,18 +13,18 @@ class CreateInformationTable extends Migration
      */
     public function up()
     {
-        Schema::create('information', function (Blueprint $table) {
+        Schema::create('informations', function (Blueprint $table) {
             $table->string('id')->unique()->primary();
             $table->string('title');
             $table->longText('content');
             $table->string('category_id');
             $table->string('user_id');
-            $table->string('course_id');
+            // $table->string('course_id');
             $table->timestamps();
 
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('CASCADE');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('CASCADE');
-            $table->foreign('course_id')->references('id')->on('courses')->onDelete('CASCADE');
+            // $table->foreign('course_id')->references('id')->on('courses')->onDelete('CASCADE');
         });
     }
 

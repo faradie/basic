@@ -19,6 +19,8 @@ import EditClasses from './pages/classes/Edit.vue'
 
 import IndexInformations from './pages/informations/Index.vue'
 import InformationsData from './pages/informations/InformationsData.vue'
+import AddInformation from './pages/informations/Add.vue'
+import EditInformation from './pages/informations/Edit.vue'
 
 import Users from './pages/users/Index.vue'
 import DataUsers from './pages/users/DataUsers.vue'
@@ -135,6 +137,18 @@ const router = new Router({
                     name: 'informations.data',
                     component: InformationsData,
                     meta: { title: 'Data Informasi' }
+                },
+                {
+                    path: 'add',
+                    name: 'informations.add',
+                    component: AddInformation,
+                    meta: { title: 'Buat Informasi' }
+                },
+                {
+                    path:'edit/:id',
+                    name: 'informations.edit',
+                    component: EditInformation,
+                    meta:{ title: 'Edit Informasi'}
                 }
             ]
         },

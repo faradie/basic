@@ -44,6 +44,9 @@ const mutations = {
             start_time: payload.start_time,
             end_time: payload.end_time
         }
+    },
+    SET_PAGE(state,payload){
+        state.page = payload
     }
 }
 const actions = {
@@ -82,7 +85,7 @@ const actions = {
                     localStorage.removeItem('basicState')
                     commit('SET_TOKEN', null, { root: true })
                 }
-                console.log(error)
+                console.log(error.response.status)
             })
         })
     },

@@ -5,7 +5,7 @@
         <router-link :to="{ name: 'course.add' }" class="btn btn-primary btn-sm btn-flat">Tambah</router-link>
         <button class="btn btn-danger btn-sm btn-flat" v-if="courses.data && courses.data.length > 0" @click="hapusAll">Hapus Semua</button>
         <div class="pull-right">
-          <input type="text" class="form-control" placeholder="Cari..." v-model="search" />
+          <input type="text" class="form-control" placeholder="Cari Matakuliah" v-model="search" />
         </div>
       </div>
 

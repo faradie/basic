@@ -16,10 +16,10 @@ class ClassController extends Controller
     {
         $classes = Classes::with(['course', 'lecture'])->orderBy('created_at', 'DESC');
         if (request()->key != '') {
-            $classes = $classes->where('name', 'LIKE', '%' . request()->key . '%');
+            $classes = $classes->where('lecture_id', 'LIKE', '%' . request()->key . '%');
         }
 
-        return new ClassCollection($classes->paginate(10));
+        return new ClassCollection($classes->paginate(2));
     }
 
     public function get_mk_ds()

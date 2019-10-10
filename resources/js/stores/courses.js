@@ -56,7 +56,7 @@ const actions = {
     },
     createCourse({ commit, state }, payload) {
         return new Promise((resolve, reject) => {
-            commit('CLEAR_ERRORS', '', {root: true})
+            commit('CLEAR_ERRORS', '', { root: true })
             $axios.post('/courses', state.course).then((response) => {
                 resolve(response.data)
             }).catch((error) => {
@@ -90,7 +90,7 @@ const actions = {
     },
     updateCourse({ commit, state }, payload) {
         return new Promise((resolve, reject) => {
-            commit('CLEAR_ERRORS', '', {root: true})
+            commit('CLEAR_ERRORS', '', { root: true })
             $axios.put(`/courses/${payload}`, state.course).then((response) => {
                 commit('CLEAR_FORM_COURSE')
                 resolve(response.data)
@@ -110,6 +110,15 @@ const actions = {
         return new Promise((resolve, reject) => {
             $axios.delete(`/courses/${payload}`).then((response) => {
                 resolve(response.data)
+            }).catch((error) => {
+                if (error.response.status == 422) {
+                    commit('SET_ERRORS', error.response.data.errors, { root: true })
+                } else if (error.response.status == 401) {
+                    localStorage.setItem('token', null)
+                    localStorage.removeItem('basicState')
+                    commit('SET_TOKEN', null, { root: true })
+                }
+                console.log(error)
             })
         })
     },
@@ -118,6 +127,15 @@ const actions = {
         return new Promise((resolve, reject) => {
             $axios.get(`/course/deleteAll`).then((response) => {
                 resolve(response.data)
+            }).then((error) => {
+                if (error.response.status == 422) {
+                    commit('SET_ERRORS', error.response.data.errors, { root: true })
+                } else if (error.response.status == 401) {
+                    localStorage.setItem('token', null)
+                    localStorage.removeItem('basicState')
+                    commit('SET_TOKEN', null, { root: true })
+                }
+                console.log(error)
             })
         })
     }
