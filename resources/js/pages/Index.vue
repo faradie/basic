@@ -63,6 +63,55 @@
         <!-- /.tab-content -->
       </div>
       <!-- Info boxes -->
+      <div class="row">
+        <div class="col-md-12">
+          <h3>Informasi</h3>
+          <div class="mb-2">
+            <input type="text" class="form-control" @keyup.enter="submit" placeholder="Cari Informasi" v-model="search"  />
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12" v-for="row in informations.data" :value="row.id" :key="row.id">
+          <div class="box box-success">
+            <div class="box-header with-border">
+              <h3 class="box-title">{{ row.title }}</h3>
+              <br />
+              <small>{{ row.created_at | moment("D MMMM YYYY") }}</small>
+              <small class="badge badge-secondary">{{ row.category.title }}</small>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+              <p v-if="row.content.length > 100" v-html="row.content.substring(0,200)+'...'"></p>
+              <p v-else v-html="row.content"></p>
+              <button
+                @click.prevent="infoDetail(row.id)"
+                v-if="row.content.length > 100"
+                class="btn btn-primary btn-sm"
+              >Selengkapnya</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <p v-if="informations.data">
+            <i class="fa fa-bars"></i>
+            {{ informations.data.length }} item dari {{ informations.meta.total }} total informasi
+          </p>
+        </div>
+        <div class="col-md-6">
+          <div class="pull-right">
+            <b-pagination
+              v-model="pageIndex"
+              :total-rows="informations.meta.total"
+              :per-page="informations.meta.per_page"
+              aria-controls="informations"
+              v-if="informations.data && informations.data.length > 0"
+            ></b-pagination>
+          </div>
+        </div>
+      </div>
     </section>
     <!-- /.content -->
   </div>
@@ -88,19 +137,47 @@ export default {
         { key: "course", label: "Matakuliah" },
         { key: "class", label: "Kelas" },
         { key: "lectur", label: "Dosen" }
-      ]
+      ],
+      search:''
     };
   },
   methods: {
-    ...mapActions("classes", ["getSchedule"])
+    ...mapActions("classes", ["getSchedule"]),
+    ...mapActions("informations", ["infoIndex", "infoDetailIndex"]),
+    infoDetail(id) {
+      this.$router.push({ name: "infoIndex.detail", params: { id: id } });
+    },
+    submit(){
+      this.infoIndex(this.search);
+    }
   },
   created() {
     this.getSchedule();
+    this.infoIndex();
   },
   computed: {
     ...mapState("classes", {
       schedule: state => state.schedule
-    })
+    }),
+    ...mapState("informations", {
+      informations: state => state.informations
+    }),
+    pageIndex: {
+      get() {
+        return this.$store.state.informations.pageIndex;
+      },
+      set(val) {
+        this.$store.commit("informations/SET_PAGE_INDEX", val);
+      }
+    }
+  },
+  watch: {
+    pageIndex() {
+      this.infoIndex();
+    }
+    // search() {
+    //   this.infoIndex(this.search);
+    // }
   }
 };
 </script>

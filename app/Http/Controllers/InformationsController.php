@@ -18,6 +18,22 @@ class InformationsController extends Controller
 
         return new InformationsCollections($informations->paginate(10));
     }
+    public function infoIndex()
+    {
+        $informations = Informations::with(['user', 'category'])->orderBy('created_at', 'DESC');
+        if (request()->key != '') {
+            $informations = $informations->where('content', 'LIKE', '%' . request()->key . '%');
+        }
+
+        return new InformationsCollections($informations->paginate(10));
+    }
+
+    public function infoDetail($id)
+    {
+        $information = Informations::with(['user', 'category'])->find($id);
+        return response()->json(['status' => 'success', 'data' => $information],200);
+     }
+
 
     public function store(Request $request)
     {

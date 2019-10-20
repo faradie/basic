@@ -21,6 +21,7 @@ import IndexInformations from './pages/informations/Index.vue'
 import InformationsData from './pages/informations/InformationsData.vue'
 import AddInformation from './pages/informations/Add.vue'
 import EditInformation from './pages/informations/Edit.vue'
+import InfoIndexDetail from './pages/informations/InfoIndexDetail.vue'
 
 import Users from './pages/users/Index.vue'
 import DataUsers from './pages/users/DataUsers.vue'
@@ -158,6 +159,12 @@ const router = new Router({
             component: IndexCategories,
             meta: { requiresAuth: true, title: 'Kelola Kategori' },
 
+        },
+        {
+            path: '/info-detail/:id',
+            name: 'infoIndex.detail',
+            component: InfoIndexDetail,
+            meta:{ title: 'Detail Informasi'}
         }
     ]
 });
