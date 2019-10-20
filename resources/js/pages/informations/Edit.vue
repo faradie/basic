@@ -36,7 +36,7 @@ export default {
 
         Toast.fire({
           type: "success",
-          title: "Berhasil tambah informasi!"
+          title: "Berhasil edit informasi!"
         });
       });
     }

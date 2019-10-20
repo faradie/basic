@@ -19,7 +19,7 @@ class ClassController extends Controller
             $classes = $classes->where('lecture_id', 'LIKE', '%' . request()->key . '%');
         }
 
-        return new ClassCollection($classes->paginate(2));
+        return new ClassCollection($classes->paginate(10));
     }
 
     public function get_mk_ds()
@@ -94,5 +94,11 @@ class ClassController extends Controller
     {
         DB::table('classes')->delete();
         return response()->json(['status' => 'success'], 200);
-     }
+    }
+
+    public function getSchedule()
+    {
+        $classes = Classes::with(['course', 'lecture'])->orderBy('start_time', 'ASC')->get()->groupBy('day');
+        return response()->json(['status' => 'success', 'data' => $classes], 200);
+    }
 }

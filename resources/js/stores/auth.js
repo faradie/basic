@@ -61,7 +61,7 @@ const actions = {
                 resolve(response.data)
                 this.$router.push({ name: 'index' })
             }).catch((error) => {
-                if (error.response.status == 422) {
+                if (error.response.status == 422 || error.response.status == 500) {
                     commit('SET_ERRORS', error.response.data.errors, { root: true })
                 }
             })

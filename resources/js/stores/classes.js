@@ -12,7 +12,8 @@ const state = () => ({
         attrib: '',
         start_time: '',
         end_time: ''
-    }
+    },
+    schedule:[]
 })
 
 const mutations = {
@@ -47,6 +48,10 @@ const mutations = {
     },
     SET_PAGE(state,payload){
         state.page = payload
+    },
+
+    SET_SCHEDULE(state,payload){
+        state.schedule = payload
     }
 }
 const actions = {
@@ -129,6 +134,15 @@ const actions = {
     deleteAllClasses({commit}){
         return new Promise((resolve,reject)=>{
             $axios.get(`/classes/deleteAll`).then((response)=>{
+                resolve(response.data)
+            })
+        })
+    },
+
+    getSchedule({commit}){
+        return new Promise((resolve,reject)=>{
+            $axios.get(`/schedule`).then((response)=>{
+                commit('SET_SCHEDULE',response.data.data)
                 resolve(response.data)
             })
         })

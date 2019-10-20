@@ -19,7 +19,7 @@ use Illuminate\Http\Request;
 
 Route::post('/register', 'Auth\RegisterController@register');
 Route::post('/login', 'Auth\LoginController@login');
-
+Route::get('/schedule','ClassController@getSchedule');
 
 
 Route::group(['middleware' => 'auth:api'], function () {
