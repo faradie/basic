@@ -6,21 +6,28 @@ use Illuminate\Database\Eloquent\Model;
 
 class Informations extends Model
 {
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    public $incrementing = false;
     protected $table = 'informations';
     protected $guarded = [];
     protected $primaryKey ="id";
-    public $incrementing = false;
+    protected $keyType = 'string';
+    
 
     
 
     public function user()
     {
-        return $this->belongsTo('App\User','user_id');
+        return $this->belongsTo('App\User');
     }
 
     public function category()
     {
-        return $this->belongsTo('App\Category','category_id');
+        return $this->belongsTo('App\Category');
     }
     
 }

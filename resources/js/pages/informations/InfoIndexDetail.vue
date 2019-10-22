@@ -1,5 +1,6 @@
 <template>
-  <div class="container">
+<!-- class="container" -->
+  <div >
     <section class="content-header">
       <h1>Detail Informasi {{ indexInfo.title }}</h1>
       <small>{{ indexInfo.created_at | moment("D MMMM YYYY") }}</small>

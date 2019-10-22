@@ -1,5 +1,6 @@
 <template>
-  <div class="container">
+ <!-- class="container" -->
+  <div>
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
@@ -67,15 +68,26 @@
         <div class="col-md-12">
           <h3>Informasi</h3>
           <div class="mb-2">
-            <input type="text" class="form-control" @keyup.enter="submit" placeholder="Cari Informasi" v-model="search"  />
+            <input
+              type="text"
+              class="form-control"
+              @keyup.enter="submit"
+              placeholder="Cari Informasi"
+              v-model="search"
+            />
           </div>
         </div>
       </div>
+      <br />
       <div class="row">
         <div class="col-md-12" v-for="row in informations.data" :value="row.id" :key="row.id">
           <div class="box box-success">
             <div class="box-header with-border">
-              <h3 class="box-title">{{ row.title }}</h3>
+              <router-link
+                :to="{ name:'infoIndex.detail', params:{id: row.id} }"
+              >
+                <h3 class="box-title">{{ row.title }}</h3>
+              </router-link>
               <br />
               <small>{{ row.created_at | moment("D MMMM YYYY") }}</small>
               <small class="badge badge-secondary">{{ row.category.title }}</small>
@@ -91,6 +103,11 @@
               >Selengkapnya</button>
             </div>
           </div>
+        </div>
+      </div>
+      <div v-if="informations.data < 1" class="row">
+        <div class="col-md-12">
+          <h4>Tidak ada informasi terbaru</h4>
         </div>
       </div>
       <div class="row">
@@ -138,7 +155,7 @@ export default {
         { key: "class", label: "Kelas" },
         { key: "lectur", label: "Dosen" }
       ],
-      search:''
+      search: ""
     };
   },
   methods: {
@@ -147,7 +164,7 @@ export default {
     infoDetail(id) {
       this.$router.push({ name: "infoIndex.detail", params: { id: id } });
     },
-    submit(){
+    submit() {
       this.infoIndex(this.search);
     }
   },

@@ -6,11 +6,17 @@ use Illuminate\Database\Eloquent\Model;
 
 class Category extends Model
 {
-    
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    public $incrementing = false;
     protected $table = 'categories';
     protected $guarded = [];
     protected $primaryKey ="id";
-    public $incrementing = false;
+    protected $keyType = 'string';
+    
 
 
     public function informations(){

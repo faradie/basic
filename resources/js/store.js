@@ -7,6 +7,7 @@ import classes from './stores/classes.js'
 import users from './stores/users.js'
 import categories from './stores/categories.js'
 import informations from './stores/informations.js'
+import modules from './stores/modules.js'
 
 import createPersistedState from 'vuex-persistedstate'
 
@@ -20,7 +21,8 @@ const store = new Vuex.Store({
         classes,
         users,
         categories,
-        informations
+        informations,
+        modules
     },
     state: {
         token: localStorage.getItem('token'),

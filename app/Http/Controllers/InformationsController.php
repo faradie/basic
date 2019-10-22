@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Informations;
 use App\Http\Resources\InformationsCollections;
 use Webpatser\Uuid\Uuid;
+use Illuminate\Support\Facades\DB;
 
 class InformationsController extends Controller
 {
@@ -31,8 +32,8 @@ class InformationsController extends Controller
     public function infoDetail($id)
     {
         $information = Informations::with(['user', 'category'])->find($id);
-        return response()->json(['status' => 'success', 'data' => $information],200);
-     }
+        return response()->json(['status' => 'success', 'data' => $information], 200);
+    }
 
 
     public function store(Request $request)
@@ -46,11 +47,11 @@ class InformationsController extends Controller
 
         $uid = Uuid::generate();
         Informations::create([
-            'id' => $uid,
-            'title' => $request->title,
-            'content' => $request->content,
-            'category_id' => $request->category_id,
-            'user_id' => $request->user_id
+            'id' => "$uid",
+            'title' => "$request->title",
+            'content' => "$request->content",
+            'category_id' => "$request->category_id",
+            'user_id' => "$request->user_id"
         ]);
 
         return response()->json(['status' => 'success'], 200);
@@ -86,6 +87,12 @@ class InformationsController extends Controller
         $information = Informations::find($id);
         $information->delete();
 
+        return response()->json(['status' => 'success'], 200);
+    }
+
+    public function deleteAllInfo()
+    {
+        DB::table('informations')->delete();
         return response()->json(['status' => 'success'], 200);
     }
 }

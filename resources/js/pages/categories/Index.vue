@@ -1,5 +1,6 @@
 <template>
-  <div class="container">
+<!-- class="container" -->
+  <div >
     <div class="content-header">
       <h1>Kategori</h1>
       <breadcrumb></breadcrumb>

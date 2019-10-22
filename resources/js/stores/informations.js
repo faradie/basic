@@ -203,6 +203,22 @@ const actions = {
                 console.log(error)
             })
         })
+    },
+    deleteAllInfo({ commit }) {
+        return new Promise((resolve, reject) => {
+            $axios.get(`/informations/deleteAll`).then((response) => {
+                resolve(response.data)
+            }).catch((error) => {
+                if (error.response.status == 422) {
+                    commit('SET_ERRORS', error.response.data.errors, { root: true })
+                } else if (error.response.status == 401) {
+                    localStorage.setItem('token', null)
+                    localStorage.removeItem('basicState')
+                    commit('SET_TOKEN', null, { root: true })
+                }
+                console.log(error)
+            })
+        })
     }
 }
 

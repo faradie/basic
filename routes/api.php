@@ -30,9 +30,12 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::resource('/categories','CategoriesController')->except(['show']);
 
     Route::resource('/informations','InformationsController')->except(['show']);
+    Route::get('/informations/deleteAll','InformationsController@deleteAllInfo');
 
     Route::resource('/courses', 'CourseController')->except(['show']);
     Route::get('/course/deleteAll', 'CourseController@deleteAll');
+
+    Route::get('/modules/{id}', 'ModuleController@getModule');
 
     Route::resource('/classes', 'ClassController')->except(['show']);
     Route::get('/classes/get-mk_ds', 'ClassController@get_mk_ds')->name('get_mk_ds');

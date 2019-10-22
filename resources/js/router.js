@@ -27,6 +27,10 @@ import Users from './pages/users/Index.vue'
 import DataUsers from './pages/users/DataUsers.vue'
 import UserSettings from './pages/users/UserSetting.vue'
 
+import IndexModules from './pages/modules/Index.vue'
+import ModulesData from './pages/modules/ModulesData.vue'
+import ModulesAdd from './pages/modules/Add.vue'
+
 import IndexCategories from './pages/categories/Index.vue'
 
 import store from './store.js'
@@ -125,6 +129,25 @@ const router = new Router({
                     name: 'user.settings',
                     component: UserSettings,
                     meta: { title: 'Atur Pengguna' }
+                }
+            ]
+        },
+        {
+            path: '/modules',
+            component: IndexModules,
+            meta:{ requiresAuth:true},
+            children:[
+                {
+                    path:'',
+                    name: 'modules.data',
+                    component: ModulesData,
+                    meta:{ title : 'Kelola Materi'}
+                },
+                {
+                    path:'add',
+                    name:'modules.add',
+                    component: ModulesAdd,
+                    meta:{title:'Tambah Materi'}
                 }
             ]
         },

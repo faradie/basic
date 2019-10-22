@@ -42,13 +42,13 @@ class ClassController extends Controller
 
         $uid = Uuid::generate();
         Classes::create([
-            'id' => $uid,
-            'lecture_id' => $request->lecture_id,
-            'course_id' => $request->course_id,
-            'day' => $request->day,
-            'attrib' => $request->attrib,
-            'start_time' => $request->start_time,
-            'end_time' => $request->end_time
+            'id' => "$uid",
+            'lecture_id' => "$request->lecture_id",
+            'course_id' => "$request->course_id",
+            'day' => "$request->day",
+            'attrib' => "$request->attrib",
+            'start_time' => \Carbon\Carbon::createFromTimeString($request->start_time, 'Asia/Jakarta'),
+            'end_time' => \Carbon\Carbon::createFromTimeString($request->end_time, 'Asia/Jakarta')
         ]);
         return response()->json(['status' => 'success', 200]);
     }

@@ -11,7 +11,8 @@
           <div class="pull-left info">
             <p>{{ user.name }}</p>
             <a href="#">
-              <i class="fa fa-circle text-success"></i> {{ user.role }}
+              <i class="fa fa-circle text-success"></i>
+              {{ user.role }}
             </a>
           </div>
         </div>
@@ -37,10 +38,10 @@
           </li>
           <li>
             <router-link data-toggle="push-menu" :to="{ name:'categories' }">
-            <a >
-              <i class="fa fa-th"></i>
-              <span>Kategori</span>
-            </a>
+              <a>
+                <i class="fa fa-th"></i>
+                <span>Kategori</span>
+              </a>
             </router-link>
           </li>
           <li>
@@ -138,10 +139,12 @@
             </a>
           </li>
           <li>
-            <a href="pages/widgets.html">
-              <i class="fa fa-book"></i>
-              <span>Materi</span>
-            </a>
+            <router-link data-toggle="push-menu" :to="{ name:'modules.data' }">
+              <a>
+                <i class="fa fa-book"></i>
+                <span>Materi</span>
+              </a>
+            </router-link>
           </li>
 
           <li class="header">Praktikan</li>

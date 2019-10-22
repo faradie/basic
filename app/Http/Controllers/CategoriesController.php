@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Category;
 use App\Http\Resources\CategoriesCollections;
 use Webpatser\Uuid\Uuid;
+use Illuminate\Support\Facades\DB;
 
 class CategoriesController extends Controller
 {
@@ -28,10 +29,22 @@ class CategoriesController extends Controller
 
         $uid = Uuid::generate();
         Category::create([
-            'id' => $uid,
-            'title' => $request->title,
-            'description' => $request->description
+            'id' => "$uid",
+            'title' => "$request->title",
+            'description' => "$request->description"
         ]);
+
+        // DB::table('categories')->insert([
+        //     'id' => "$uid",
+        //     'title' => "$request->title",
+        //     'description' => "$request->description"
+        // ]);
+
+        // $category = new Category;
+        // $category->id = $uid;
+        // $category->title = $request->title;
+        // $category->description = $request->description;
+        // $category->save();
 
         return response()->json(['status' => 'success'], 200);
     }

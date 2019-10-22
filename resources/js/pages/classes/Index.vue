@@ -1,5 +1,6 @@
 <template>
-  <div class="container">
+<!-- class="container" -->
+  <div >
     <section class="content-header">
       <h1>Kelas</h1>
       <breadcrumb></breadcrumb>

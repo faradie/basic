@@ -6,7 +6,10 @@
           :to="{ name: 'informations.add' }"
           class="btn btn-primary btn-sm btn-flat"
         >Tambah</router-link>
-        <button class="btn btn-danger btn-sm btn-flat">Hapus Semua</button>
+        <button
+          @click.prevent="deleteAllInformations"
+          class="btn btn-danger btn-sm btn-flat"
+        >Hapus Semua</button>
         <div class="pull-right">
           <input type="text" class="form-control" placeholder="Cari dengan judul" v-model="search" />
         </div>
@@ -70,7 +73,40 @@ export default {
     this.getInformations();
   },
   methods: {
-    ...mapActions("informations", ["getInformations","dropInformation"]),
+    ...mapActions("informations", [
+      "getInformations",
+      "dropInformation",
+      "deleteAllInfo"
+    ]),
+    deleteAllInformations() {
+      this.$swal({
+        title: "Yakin dihapus?",
+        text: "Apabila terhapus tidak dapat dikembalikan seperti mantan!",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Ya Hapus!",
+        cancelButtonText: "Tidak"
+      }).then(result => {
+        if (result.value) {
+          this.deleteAllInfo().then(() => {
+            const Toast = this.$swal.mixin({
+              toast: true,
+              position: "top-end",
+              showConfirmButton: false,
+              timer: 3000
+            });
+
+            Toast.fire({
+              type: "success",
+              title: "Berhasil hapus semua informasi!"
+            });
+            this.getInformations();
+          });
+        }
+      });
+    },
     deleteInformation(id) {
       this.$swal({
         title: "Yakin dihapus?",

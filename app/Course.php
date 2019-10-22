@@ -9,6 +9,8 @@ class Course extends Model
     protected $guarded = [];
     protected $primaryKey ="id";
     public $incrementing = false;
+    protected $keyType = 'string';
+    
     public function classes(){
         return $this->hasMany('App\Classes');
     }

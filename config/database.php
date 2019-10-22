@@ -15,7 +15,7 @@ return [
     |
     */
 
-    'default' => env('DB_CONNECTION', 'mysql'),
+    'default' => env('DB_CONNECTION', 'oracle'),
 
     /*
     |--------------------------------------------------------------------------
@@ -90,6 +90,17 @@ return [
             'prefix' => '',
             'prefix_indexes' => true,
         ],
+        'oracle' => [
+            'driver' => 'oracle',
+            'host' => 'localhost',
+            'port' => '1521',
+            'database' => 'basic_db',
+            'service_name' => 'xe',
+            'username' => 'alfin',
+            'password' => '123123123',
+            'charset' => 'AL32UTF8',
+            'prefix' => '',
+        ]
 
     ],
 
