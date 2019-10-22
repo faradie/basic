@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use App\Http\Resources\UserCollections;
+use Illuminate\Support\Facades\DB;
 
 class UsersController extends Controller
 {
@@ -25,7 +26,7 @@ class UsersController extends Controller
 
     public function update(Request $request, $id)
     {
-        $this->validate($request,[
+        $this->validate($request, [
             'id' => 'string|required|exists:users',
             'name' => 'required|string|max:255',
             'email' => 'required|string|max:255|exists:users|email',
@@ -39,7 +40,12 @@ class UsersController extends Controller
             'phone' => $request->phone
         ]);
 
-        return response()->json(['status' => 'success',200]);
+        return response()->json(['status' => 'success', 200]);
+    }
 
-     }
+    public function deleteAll()
+    {
+        DB::table('users')->delete();
+        return response()->json(['status' => 'success'], 200);
+    }
 }

@@ -154,13 +154,30 @@ const actions = {
     setRolePermission({ commit }, payload) {
         return new Promise((resolve, reject) => {
             // console.log(payload)
-            commit('CLEAR_ERRORS', '', {root: true})
+            commit('CLEAR_ERRORS', '', { root: true })
             $axios.post(`/set-role-permissions`, payload).then((response) => {
                 resolve(response.data)
             }).catch((error) => {
                 if (error.response.status == 422) {
                     commit('SET_ERRORS', error.response.data.errors, { root: true })
                 }
+            })
+        })
+    },
+
+    deleteAllUser({ commit }) {
+        return new Promise((resolve, reject) => {
+            $axios.get(`/users/deleteAll`).then((response) => {
+                resolve(response.data)
+            }).catch((error) => {
+                if (error.response.status == 422) {
+                    commit('SET_ERRORS', error.response.data.errors, { root: true })
+                } else if (error.response.status == 401) {
+                    localStorage.setItem('token', null)
+                    localStorage.removeItem('basicState')
+                    commit('SET_TOKEN', null, { root: true })
+                }
+                console.log(error)
             })
         })
     }

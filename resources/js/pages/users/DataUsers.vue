@@ -2,7 +2,11 @@
   <div class="col-md-12">
     <div class="panel">
       <div class="panel-heading">
-        <button class="btn btn-danger btn-sm btn-flat" v-if="users.data && users.data.length > 0" >Hapus Semua</button>
+        <button
+          class="btn btn-danger btn-sm btn-flat"
+          @click.prevent="deleteAllUsers"
+          v-if="users.data && users.data.length > 0"
+        >Hapus Semua</button>
         <div class="pull-right">
           <input type="text" class="form-control" placeholder="Cari..." v-model="search" />
         </div>
@@ -27,7 +31,10 @@
               <td class="parent-row">{{ row.item.created_at | moment("D MMMM YYYY") }}</td>
             </template>
             <template v-slot:cell(action)="row">
-              <router-link :to="{ name: 'user.settings', params: { id:row.item.id } }" class="btn btn-warning btn-sm">
+              <router-link
+                :to="{ name: 'user.settings', params: { id:row.item.id } }"
+                class="btn btn-warning btn-sm"
+              >
                 <i class="fa fa-pencil"></i>
               </router-link>
               <button class="btn btn-danger btn-sm">
@@ -66,7 +73,36 @@ import { mapActions, mapState } from "vuex";
 export default {
   name: "DataUsers",
   methods: {
-    ...mapActions("users", ["getUsers"]),
+    ...mapActions("users", ["getUsers","deleteAllUser"]),
+    deleteAllUsers() {
+      this.$swal({
+        title: "Yakin dihapus?",
+        text: "Apabila terhapus tidak dapat dikembalikan seperti mantan!",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Ya Hapus!",
+        cancelButtonText: "Tidak"
+      }).then(result => {
+        if (result.value) {
+          this.deleteAllUser().then(() => {
+            const Toast = this.$swal.mixin({
+              toast: true,
+              position: "top-end",
+              showConfirmButton: false,
+              timer: 3000
+            });
+
+            Toast.fire({
+              type: "success",
+              title: "Berhasil hapus semua pengguna!"
+            });
+            this.getUsers();
+          });
+        }
+      });
+    }
   },
   created() {
     this.getUsers();
