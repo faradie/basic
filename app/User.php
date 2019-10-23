@@ -48,6 +48,10 @@ class User extends Authenticatable
         return $this->hasMany('App\Course');
     }
 
+    public function modules(){
+        return $this->hasMany('App\Module');
+    }
+
     public function classes(){
         return $this->hasMany('App\Classes');
     }

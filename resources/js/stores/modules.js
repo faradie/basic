@@ -1,7 +1,7 @@
 import $axios from '../api.js'
 
 const state = () => ({
-    modules: []
+    modules: [],
 })
 
 const mutations = {
@@ -11,10 +11,10 @@ const mutations = {
 }
 
 const actions = {
-    getModules({ commit }, payload) {
+    getAllModules({ commit }) {
         return new Promise((resolve, reject) => {
-            $axios.get(`/modules/${payload}`).then((response) => {
-                commit('SET_MODULES', response.data)
+            $axios.get(`/modules`).then((response) => {
+                commit('SET_MODULES', response.data.data)
                 resolve(response.data)
             })
         })
@@ -26,13 +26,18 @@ const actions = {
                     'Content-Type': 'multipart/form-data'
                 }
             }).then((response) => {
-                dispatch('getModules').then(() => {
+                dispatch('getAllModules').then(() => {
                     resolve(response.data)
                 })
             }).catch((error) => {
                 if (error.response.status == 422) {
                     commit('SET_ERRORS', error.response.data.errors, { root: true })
+                } else if (error.response.status == 401) {
+                    localStorage.setItem('token', null)
+                    localStorage.removeItem('basicState')
+                    commit('SET_TOKEN', null, { root: true })
                 }
+                console.log(error)
             })
         })
     }

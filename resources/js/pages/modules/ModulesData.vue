@@ -21,7 +21,7 @@
             <h3 class="box-title">{{ row.name.toUpperCase() }}</h3>
             <div v-if="row.status == true" class="box-tools pull-right">
               <button
-                @click.prevent="getModulesID(row.id)"
+                @click="getModulesID(row.id,row.name)"
                 data-toggle="modal"
                 data-target="#modules-modal"
                 type="button"
@@ -39,14 +39,31 @@
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
-            <h4 class="modal-title">Default Modal</h4>
+            <h4 class="modal-title">MATERI {{ choosen.toUpperCase() }}</h4>
           </div>
           <div class="modal-body">
-            <p>One fine body&hellip;</p>
+            <div
+              v-for="row in modules[choosenID]"
+              :value="row.id"
+              :key="row.id"
+              class="box box-default collapsed-box box-solid"
+            >
+              <div class="box-header with-border">
+                <h3 class="box-title">{{ row.file.toUpperCase() }}</h3>
+                <div class="box-tools pull-right">
+                  <button
+                    data-toggle="modal"
+                    data-target="#modules-modal"
+                    type="button"
+                    class="btn btn-box-tool"
+                  >Download</button>
+                </div>
+              </div>
+            </div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Save changes</button>
+            <!-- <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button> -->
+            <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
           </div>
         </div>
         <!-- /.modal-content -->
@@ -62,6 +79,8 @@ export default {
   name: "ModulesData",
   data() {
     return {
+      choosen: "",
+      choosenID: "",
       tabs: [
         { value: 1, text: "Pretest" },
         { value: 2, text: "Laporan" },
@@ -73,17 +92,22 @@ export default {
   },
   methods: {
     ...mapActions("courses", ["getCourses"]),
-    ...mapActions("modules", ["getModules"]),
-    getModulesID(id) {
-      console.log(id);
+    ...mapActions("modules", ["getAllModules"]),
+    getModulesID(id, name) {
+      this.choosenID = id;
+      this.choosen = name;
     }
   },
   computed: {
     ...mapState("courses", {
       courses: state => state.courses
+    }),
+    ...mapState("modules", {
+      modules: state => state.modules
     })
   },
   created() {
+    this.getAllModules();
     this.getCourses();
   }
 };

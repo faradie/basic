@@ -17,4 +17,8 @@ class Course extends Model
     public function lectur(){
         return $this->hasMany('App\User');
     }
+
+    public function modules(){
+        return $this->hasMany('App\Module');
+    }
 }

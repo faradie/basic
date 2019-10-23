@@ -10,4 +10,13 @@ class Module extends Model
     protected $primaryKey ="id";
     public $incrementing = false;
     protected $keyType = 'string';
+
+    public function course()
+    {
+        return $this->belongsTo('App\Course');
+    }
+    public function user()
+    {
+        return $this->belongsTo('App\User');
+    }
 }

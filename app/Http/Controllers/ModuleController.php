@@ -10,9 +10,9 @@ use Illuminate\Support\Facades\DB;
 
 class ModuleController extends Controller
 {
-    public function getModule($id)
+    public function index()
     {
-        $module = Module::where('course_id', '=', $id);
+        $module = Module::with(['user', 'course'])->get()->groupBy('course_id');
         return response()->json(['status' => 'success', 'data' => $module], 200);
     }
 
