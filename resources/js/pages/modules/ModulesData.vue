@@ -6,6 +6,11 @@
         <button class="btn btn-danger btn-sm btn-flat">Hapus Semua</button>
       </div>
       <div class="panel-body">
+        <div v-if="courses.data < 1" class="row">
+          <div class="col-md-12">
+            <h4>Belum ada data matakuliah</h4>
+          </div>
+        </div>
         <div
           v-for="row in courses.data"
           :value="row.id"
@@ -13,7 +18,7 @@
           class="box box-default collapsed-box box-solid"
         >
           <div class="box-header with-border">
-            <h3 class="box-title">{{ row.name }}</h3>
+            <h3 class="box-title">{{ row.name.toUpperCase() }}</h3>
             <div v-if="row.status == true" class="box-tools pull-right">
               <button
                 @click.prevent="getModulesID(row.id)"
@@ -57,20 +62,20 @@ export default {
   name: "ModulesData",
   data() {
     return {
-      tabs:[
-        { value: 1, text:'Pretest' },
-        { value: 2, text:'Laporan' },
-        { value: 3, text:'Tugas' },
-        { value: 4, text:'Ujian' },
-        { value: 5, text:'Materi' },
+      tabs: [
+        { value: 1, text: "Pretest" },
+        { value: 2, text: "Laporan" },
+        { value: 3, text: "Tugas" },
+        { value: 4, text: "Ujian" },
+        { value: 5, text: "Materi" }
       ]
-    }
+    };
   },
   methods: {
     ...mapActions("courses", ["getCourses"]),
     ...mapActions("modules", ["getModules"]),
-    getModulesID(id){
-      console.log(id)
+    getModulesID(id) {
+      console.log(id);
     }
   },
   computed: {

@@ -37,6 +37,7 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::get('/course/deleteAll', 'CourseController@deleteAll');
 
     Route::get('/modules/{id}', 'ModuleController@getModule');
+    Route::resource('/modules', 'ModuleController')->except(['show']);
 
     Route::resource('/classes', 'ClassController')->except(['show']);
     Route::get('/classes/get-mk_ds', 'ClassController@get_mk_ds')->name('get_mk_ds');

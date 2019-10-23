@@ -30,7 +30,7 @@ const mutations = {
             id: payload.id,
             name: payload.name,
             description: payload.description,
-            status: payload.status,
+            status: payload.status == 1 ? true : false,
         }
     }
 }

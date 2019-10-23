@@ -12,7 +12,7 @@
         <div class="table-responsive">
           <b-table striped hover bordered :items="classes.data" :fields="fields" show-empty>
             <template v-slot:cell(mk)="row">
-              <td class="parent-row">{{ row.item.course.name }}</td>
+              <td class="parent-row">{{ row.item.course.name.toUpperCase() }}</td>
             </template>
             <template v-slot:cell(class)="row">
               <td class="parent-row">{{ row.item.attrib }}</td>

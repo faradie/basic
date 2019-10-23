@@ -5,9 +5,9 @@
         <h3>Tambah Materi</h3>
       </div>
       <div class="panel-body">
-        <module-form></module-form>
+        <module-form ref="formModules"></module-form>
         <div class="form-group">
-          <button class="btn btn-primary btn-sm btn-flat" >
+          <button @click.prevent="submitAddModule" class="btn btn-primary btn-block btn-sm btn-flat" >
             <i class="fa fa-save"></i> Tambah
           </button>
         </div>
@@ -25,6 +25,11 @@ export default {
         return {
             
         }
+    },
+    methods: {
+       submitAddModule() {
+                this.$refs.formModules.submitFormModule()
+            }
     },
     components:{
         'module-form': FormModule

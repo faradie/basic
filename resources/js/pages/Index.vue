@@ -49,7 +49,7 @@
                   <td class="parent-row">{{ tabs.item.course_id }}</td>
                 </template>
                 <template v-slot:cell(course)="tabs">
-                  <td class="parent-row">{{ tabs.item.course.name }}</td>
+                  <td class="parent-row">{{ tabs.item.course.name.toUpperCase() }}</td>
                 </template>
                 <template v-slot:cell(class)="tabs">
                   <td class="parent-row">{{ tabs.item.attrib }}</td>
