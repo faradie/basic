@@ -64,6 +64,7 @@
                 type="text"
                 class="form-control"
                 placeholder="Cari judul kategori"
+                @keyup.enter="getSearch"
                 v-model="search"
               />
               <br />
@@ -132,6 +133,9 @@ export default {
       "updateCategoryData",
       "dropCategory"
     ]),
+    getSearch(){
+      this.getCategories(this.search)
+    },
     deletes(id) {
       this.$swal({
         title: "Yakin dihapus?",
