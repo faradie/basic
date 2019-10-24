@@ -7,6 +7,7 @@ use App\Module;
 use App\Http\Resources\ModuleCollections;
 use Webpatser\Uuid\Uuid;
 use Illuminate\Support\Facades\DB;
+use Storage;
 
 class ModuleController extends Controller
 {
@@ -52,7 +53,7 @@ class ModuleController extends Controller
         return response()->json(['status' => 'success'], 200);
     }
 
-    public function fileDownload(Request $request, $id)
+    public function fileDownload($id)
     {
         $file = Module::find($id);
 
@@ -64,5 +65,15 @@ class ModuleController extends Controller
         );
 
         return response()->download($specified, $id, $headers);
+    }
+
+    public function fileDelete($id)
+    {
+        $thisFile = Module::find($id);
+        Storage::delete($thisFile->file);
+
+        $thisFile->delete();
+
+        return response()->json(['status' => 'success'], 200);
     }
 }

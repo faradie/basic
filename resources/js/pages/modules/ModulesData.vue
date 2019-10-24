@@ -49,15 +49,22 @@
               class="box box-default collapsed-box box-solid"
             >
               <div class="box-header with-border">
+                <button
+                  type="button"
+                  @click.prevent="downloadFile(row.id)"
+                  class="btn btn-box-tool"
+                >
+                  <i class="fa fa-download"></i>
+                </button>
                 <h3 class="box-title">{{ row.file.toUpperCase() }}</h3>
                 <div class="box-tools pull-right">
                   <button
                     data-toggle="modal"
                     data-target="#modules-modal"
+                    @click.prevent="deleteModule(row.id)"
                     type="button"
-                    @click.prevent="downloadFile(row.id)"
                     class="btn btn-box-tool"
-                  >Download</button>
+                  >Hapus</button>
                 </div>
               </div>
             </div>
@@ -93,15 +100,46 @@ export default {
   },
   methods: {
     ...mapActions("courses", ["getCourses"]),
-    ...mapActions("modules", ["getAllModules","getFile"]),
+    ...mapActions("modules", [
+      "getAllModules",
+      "getFile",
+      "deleteIndividualModule"
+    ]),
     getModulesID(id, name) {
       this.choosenID = id;
       this.choosen = name;
     },
-    downloadFile(val){
-      this.getFile(val).then(()=>{
-        
-      })
+    downloadFile(val) {
+      this.getFile(val).then(() => {});
+    },
+    deleteModule(val) {
+      this.$swal({
+        title: "Yakin dihapus?",
+        text: "Apabila terhapus tidak dapat dikembalikan seperti mantan!",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Ya Hapus!",
+        cancelButtonText: "Tidak"
+      }).then(result => {
+        if (result.value) {
+          this.deleteIndividualModule(val).then(() => {
+            this.getAllModules();
+            const Toast = this.$swal.mixin({
+              toast: true,
+              position: "top-end",
+              showConfirmButton: false,
+              timer: 3000
+            });
+
+            Toast.fire({
+              type: "success",
+              title: "Berhasil hapus materi!"
+            });
+          });
+        }
+      });
     }
   },
   computed: {
