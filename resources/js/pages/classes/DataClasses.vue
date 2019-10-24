@@ -5,7 +5,13 @@
         <router-link :to="{ name:'classes.add' }" class="btn btn-primary btn-sm btn-flat">Tambah</router-link>
         <button @click="dropAllClasses" class="btn btn-danger btn-sm btn-flat">Hapus Semua</button>
         <div class="pull-right">
-          <input type="text" class="form-control" placeholder="Cari kode dosen" @keyup.enter="getSearch" v-model="search" />
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Cari kode dosen"
+            @keyup.enter="getSearch"
+            v-model="search"
+          />
         </div>
       </div>
       <div class="panel-body">
@@ -21,7 +27,9 @@
               <td class="parent-row">{{ row.item.day }}</td>
             </template>
             <template v-slot:cell(session)="row">
-              <td class="parent-row">{{ row.item.start_time }} - {{ row.item.end_time }}</td>
+              <td
+                class="parent-row"
+              >{{ row.item.start_time | moment("h:mm a")}} - {{ row.item.end_time | moment("h:mm a")}}</td>
             </template>
             <template v-slot:cell(lectur)="row">
               <td class="parent-row">{{ row.item.lecture.name }}</td>
@@ -69,9 +77,9 @@ import { mapActions, mapState } from "vuex";
 export default {
   name: "DataClasses",
   methods: {
-    ...mapActions("classes", ["getClass", "deleteClass","deleteAllClasses"]),
-    getSearch(){
-      this.getClass(this.search)
+    ...mapActions("classes", ["getClass", "deleteClass", "deleteAllClasses"]),
+    getSearch() {
+      this.getClass(this.search);
     },
     dropClass(val) {
       this.$swal({
@@ -102,7 +110,7 @@ export default {
         }
       });
     },
-    dropAllClasses(){
+    dropAllClasses() {
       this.$swal({
         title: "Yakin dihapus?",
         text: "Apabila terhapus tidak dapat dikembalikan seperti mantan!",
@@ -164,8 +172,8 @@ export default {
   watch: {
     page() {
       this.getClass();
-    },
-  },
+    }
+  }
 };
 </script>
 

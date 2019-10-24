@@ -27,7 +27,7 @@ class ModuleController extends Controller
         ]);
         DB::beginTransaction();
         $file = $request->file('file');
-        $name = $request->file('file')->getClientOriginalName().'.'.$file->getClientOriginalExtension();
+        $name = $request->file('file')->getClientOriginalName() . '.' . $file->getClientOriginalExtension();
         $description = NULL;
         if ($request->title != null) {
             $name = $request->title . '-' . time() . '.' . $file->getClientOriginalExtension();
@@ -50,5 +50,19 @@ class ModuleController extends Controller
 
         DB::commit();
         return response()->json(['status' => 'success'], 200);
+    }
+
+    public function fileDownload(Request $request, $id)
+    {
+        $file = Module::find($id);
+
+        $specified = public_path() . '/basicFiles/' . $file->file;
+        $headers = array(
+
+            'Content-Type: application/pdf',
+            'Accept: application/vnd.ms-excel'
+        );
+
+        return response()->download($specified, $id, $headers);
     }
 }

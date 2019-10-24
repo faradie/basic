@@ -43,7 +43,7 @@
                 show-empty
               >
                 <template v-slot:cell(time)="tabs">
-                  <td class="parent-row">{{ tabs.item.start_time }}-{{ tabs.item.end_time }}</td>
+                  <td class="parent-row">{{ tabs.item.start_time | moment("h:mm a") }}-{{ tabs.item.end_time | moment("h:mm a")}}</td>
                 </template>
                 <template v-slot:cell(courseID)="tabs">
                   <td class="parent-row">{{ tabs.item.course_id }}</td>

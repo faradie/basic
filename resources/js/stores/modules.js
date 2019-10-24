@@ -1,4 +1,5 @@
 import $axios from '../api.js'
+import mime from 'mime-types'
 
 const state = () => ({
     modules: [],
@@ -16,6 +17,33 @@ const actions = {
             $axios.get(`/modules`).then((response) => {
                 commit('SET_MODULES', response.data.data)
                 resolve(response.data)
+            })
+        })
+    },
+
+    getFile({ commit }, payload) {
+        return new Promise((resolve, reject) => {
+            $axios.get(`/modules/${payload}/download`, { responseType: 'arraybuffer' }).then((response) => {
+                console.log(response)
+                const types = response.headers['content-type'];
+                const blob = new Blob([response.data], { type: types });
+                const url = window.URL.createObjectURL(blob);
+                const link = document.createElement('a');
+                link.href = url;
+                const contentDisposition = response.headers['content-disposition'];
+                let fileName = payload;
+                if (contentDisposition) {
+                    const fileNameMatch = contentDisposition.match(/filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/);
+                    if (fileNameMatch.length === 2)
+                        fileName = fileNameMatch[1];
+                }
+                console.log(fileName)
+
+                link.setAttribute('download', fileName+'.'+mime.extension(types));
+                document.body.appendChild(link);
+                link.click();
+                link.remove();
+                window.URL.revokeObjectURL(url);
             })
         })
     },

@@ -55,6 +55,7 @@
                     data-toggle="modal"
                     data-target="#modules-modal"
                     type="button"
+                    @click.prevent="downloadFile(row.id)"
                     class="btn btn-box-tool"
                   >Download</button>
                 </div>
@@ -92,10 +93,15 @@ export default {
   },
   methods: {
     ...mapActions("courses", ["getCourses"]),
-    ...mapActions("modules", ["getAllModules"]),
+    ...mapActions("modules", ["getAllModules","getFile"]),
     getModulesID(id, name) {
       this.choosenID = id;
       this.choosen = name;
+    },
+    downloadFile(val){
+      this.getFile(val).then(()=>{
+        
+      })
     }
   },
   computed: {

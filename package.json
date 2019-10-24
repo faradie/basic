@@ -24,6 +24,7 @@
         "bootstrap-vue": "^2.0.2",
         "js-cookie": "^2.2.1",
         "luxon": "^1.19.3",
+        "mime-types": "^2.1.24",
         "moment": "^2.24.0",
         "vue": "^2.6.10",
         "vue-ctk-date-time-picker": "^2.3.0",

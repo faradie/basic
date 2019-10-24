@@ -1,0 +1,26 @@
+Permasalahan
+* Kebutuhan era digital, memasuki industri 4.0 yang memudahkan segala aktifitas bisnis maupun pendidikan
+* Kurang sesuainya antara kebutuhan penyedia magang dan kemampuan dari peserta magang
+* Belum adanya media / sistem yang menangani komunikasi serta pelaporan hasil magang (perantara antara penyedia magang,
+mentor, calon pemagang dan perguruan tinggi)
+
+Tujuan
+* Mempermudah sarana komunikasi dan dan pelaporan hasil kinerja magang antara pemagang, mentor, perguruan tinggi serta
+penyedia magang
+* Mengkategorikan kebutuhan pemagangan serta memberikan skala ukur agar tercapainya kesesuaian antara kemampuan calon
+pemagang dengan kebutuhan industri
+
+Manfaat
+* Tersedianya sistem yang mempermudah komunikasi dan pelaporan antar entitas dalam pemagangan
+* Mengetahui kategori dan skala ukur dari kebutuhan penyedia magang
+* Mengoptimalkan peningkatan kompetensi peserta pemagangan
+
+Luaran ->
+* Laporan penelitian
+* Rilis Sistem Tempat Magang
+
+Metode yang dipakai
+* Seci
+* Topsis
+
+Cara kerja
