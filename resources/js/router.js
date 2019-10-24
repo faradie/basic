@@ -6,6 +6,7 @@ import Home from './pages/Home.vue'
 import Login from './pages/auth/Login.vue'
 import Register from './pages/auth/Register.vue'
 import Index from './pages/Index.vue'
+import NotFound from './pages/NotFound.vue'
 
 import IndexCourses from './pages/courses/Index.vue'
 import DataCourses from './pages/courses/DataCourses.vue'
@@ -34,6 +35,9 @@ import GetModuleView from './pages/modules/GetModuleView.vue'
 
 import IndexCategories from './pages/categories/Index.vue'
 
+import IndexUploads from './pages/uploads/Index.vue'
+import DataUploads from './pages/uploads/DataUploads.vue'
+
 import store from './store.js'
 
 Vue.use(Router)
@@ -42,6 +46,7 @@ Vue.use(Router)
 const router = new Router({
     mode: 'history',
     routes: [
+        { path: '*', component: NotFound },
         {
             path: '/',
             name: 'index',
@@ -67,7 +72,7 @@ const router = new Router({
             path: '/get-modules',
             name: 'getModules',
             component: GetModuleView,
-            meta:{title:'Kumpulan Materi'}
+            meta: { title: 'Kumpulan Materi' }
         },
         {
             path: '/courses',
@@ -93,6 +98,19 @@ const router = new Router({
                     meta: { title: 'Edit Matakuliah' }
                 }
 
+            ]
+        },
+        {
+            path: '/uploads',
+            component: IndexUploads,
+            meta: { requiresAuth: true },
+            children: [
+                {
+                    path: '',
+                    name: 'uploads.data',
+                    component: DataUploads,
+                    meta: { title: 'Upload' }
+                }
             ]
         },
         {
@@ -142,19 +160,19 @@ const router = new Router({
         {
             path: '/modules',
             component: IndexModules,
-            meta:{ requiresAuth:true},
-            children:[
+            meta: { requiresAuth: true },
+            children: [
                 {
-                    path:'',
+                    path: '',
                     name: 'modules.data',
                     component: ModulesData,
-                    meta:{ title : 'Kelola Materi'}
+                    meta: { title: 'Kelola Materi' }
                 },
                 {
-                    path:'add',
-                    name:'modules.add',
+                    path: 'add',
+                    name: 'modules.add',
                     component: ModulesAdd,
-                    meta:{title:'Tambah Materi'}
+                    meta: { title: 'Tambah Materi' }
                 }
             ]
         },
@@ -176,10 +194,10 @@ const router = new Router({
                     meta: { title: 'Buat Informasi' }
                 },
                 {
-                    path:'edit/:id',
+                    path: 'edit/:id',
                     name: 'informations.edit',
                     component: EditInformation,
-                    meta:{ title: 'Edit Informasi'}
+                    meta: { title: 'Edit Informasi' }
                 }
             ]
         },
@@ -194,7 +212,7 @@ const router = new Router({
             path: '/info-detail/:id',
             name: 'infoIndex.detail',
             component: InfoIndexDetail,
-            meta:{ title: 'Detail Informasi'}
+            meta: { title: 'Detail Informasi' }
         }
     ]
 });
