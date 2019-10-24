@@ -37,7 +37,9 @@
             </a>
             <ul class="dropdown-menu" role="menu">
               <li>
-                <a href="#">Materi</a>
+                <router-link :to="{ name:'getModules' }">
+                  <a>Materi</a>
+                </router-link>
               </li>
               <li>
                 <a href="#">View Dosen</a>
@@ -48,7 +50,6 @@
       </div>
       <div class="navbar-custom-menu">
         <ul class="nav navbar-nav">
-
           <li v-if="isAuth" class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <img src="/assets/img/avatar5.png" class="user-image" alt="User Image" />
@@ -97,20 +98,20 @@
 import { mapState, mapGetters, mapActions, mapMutations } from "vuex";
 export default {
   computed: {
-    ...mapState(["token"],),
-    ...mapState('auth', {
+    ...mapState(["token"]),
+    ...mapState("auth", {
       user: state => state.user
     }),
     ...mapGetters(["isAuth"])
   },
-  methods:{
-    ...mapActions("auth", ["signout"]), 
+  methods: {
+    ...mapActions("auth", ["signout"]),
     ...mapMutations(["CLEAR_ERRORS"]),
-    signOut(){
-      this.signout().then(()=>{
-          this.CLEAR_ERRORS();
-          this.$router.push({ name: "index" });
-      })
+    signOut() {
+      this.signout().then(() => {
+        this.CLEAR_ERRORS();
+        this.$router.push({ name: "index" });
+      });
     }
   }
 };

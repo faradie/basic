@@ -30,6 +30,7 @@ import UserSettings from './pages/users/UserSetting.vue'
 import IndexModules from './pages/modules/Index.vue'
 import ModulesData from './pages/modules/ModulesData.vue'
 import ModulesAdd from './pages/modules/Add.vue'
+import GetModuleView from './pages/modules/GetModuleView.vue'
 
 import IndexCategories from './pages/categories/Index.vue'
 
@@ -61,6 +62,12 @@ const router = new Router({
             path: '/register',
             name: 'register',
             component: Register
+        },
+        {
+            path: '/get-modules',
+            name: 'getModules',
+            component: GetModuleView,
+            meta:{title:'Kumpulan Materi'}
         },
         {
             path: '/courses',

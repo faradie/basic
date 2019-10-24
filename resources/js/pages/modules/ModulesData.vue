@@ -104,13 +104,6 @@ export default {
     return {
       choosen: "",
       choosenID: "",
-      tabs: [
-        { value: 1, text: "Pretest" },
-        { value: 2, text: "Laporan" },
-        { value: 3, text: "Tugas" },
-        { value: 4, text: "Ujian" },
-        { value: 5, text: "Materi" }
-      ]
     };
   },
   methods: {
