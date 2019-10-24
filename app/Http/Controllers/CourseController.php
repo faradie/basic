@@ -27,7 +27,14 @@ class CourseController extends Controller
             'description' => 'required|max:255',
             'status'   => 'boolean'
         ]);
-        Course::create($request->all());
+        $newID = strtoupper($request->id);
+        $newName = strtolower($request->name);
+        Course::create([
+            'id' => "$newID",
+            'name' => "$newName",
+            'status' => $request->status,
+            'description' => "$request->description"
+        ]);
         return response()->json(['status' => 'success', 200]);
     }
 

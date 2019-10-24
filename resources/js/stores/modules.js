@@ -37,7 +37,7 @@ const actions = {
                         fileName = fileNameMatch[1];
                 }
 
-                link.setAttribute('download', fileName+'.'+mime.extension(types));
+                link.setAttribute('download', fileName + '.' + mime.extension(types));
                 document.body.appendChild(link);
                 link.click();
                 link.remove();
@@ -68,13 +68,46 @@ const actions = {
             })
         })
     },
-    deleteIndividualModule({commit},payload){
-        return new Promise((resolve,reject)=>{
-            $axios.get(`/modules/${payload}/delete`).then((response)=>{
+    deleteIndividualModule({ commit }, payload) {
+        return new Promise((resolve, reject) => {
+            $axios.get(`/modules/${payload}/delete`).then((response) => {
+                resolve(response.data)
+            })
+        })
+    },
+    deleteAllFilesModule({ commit }, payload) {
+        return new Promise((resolve, reject) => {
+            $axios.get(`/modules/${payload}/deleteAllFiles`).then((response) => {
                 resolve(response.data)
             })
         })
     }
+    // downloadFilesModule({ commit }, payload) {
+    //     return new Promise((resolve, reject) => {
+    //         $axios.get(`/modules/${payload}/downloadModuleFiles`, { responseType: 'arraybuffer' }).then((response) => {
+    //             console.log(response)
+    //             const types = response.headers['content-type'];
+    //             const blob = new Blob([response.data], { type: types });
+    //             const url = window.URL.createObjectURL(blob);
+    //             const link = document.createElement('a');
+    //             link.href = url;
+    //             const contentDisposition = response.headers['content-disposition'];
+    //             let fileName = payload;
+    //             if (contentDisposition) {
+    //                 const fileNameMatch = contentDisposition.match(/filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/);
+    //                 if (fileNameMatch.length === 2)
+    //                     fileName = fileNameMatch[1];
+    //             }
+
+    //             link.setAttribute('download', fileName + '.' + mime.extension(types));
+    //             document.body.appendChild(link);
+    //             link.click();
+    //             link.remove();
+    //             window.URL.revokeObjectURL(url);
+    //             resolve(response.data)
+    //         })
+    //     })
+    // }
 }
 
 export default {

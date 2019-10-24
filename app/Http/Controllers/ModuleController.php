@@ -28,10 +28,12 @@ class ModuleController extends Controller
         ]);
         DB::beginTransaction();
         $file = $request->file('file');
-        $name = $request->file('file')->getClientOriginalName() . '.' . $file->getClientOriginalExtension();
+        $name = $request->file('file')->getClientOriginalName();
+        $tit = strtolower($request->file('file')->getClientOriginalName());
         $description = NULL;
         if ($request->title != null) {
-            $name = $request->title . '-' . time() . '.' . $file->getClientOriginalExtension();
+            $tit = strtolower($request->title);
+            $name = $request->title . time() . '.' . $file->getClientOriginalExtension();
         }
         if ($request->description != null) {
             $description = $request->description;
@@ -41,8 +43,10 @@ class ModuleController extends Controller
 
         $uid = Uuid::generate();
 
+
         Module::create([
             'id' => "$uid",
+            'title' => "$tit",
             'description' => "$description",
             'file' => "$path",
             'course_id' => "$request->course_id",
@@ -76,4 +80,41 @@ class ModuleController extends Controller
 
         return response()->json(['status' => 'success'], 200);
     }
+
+    public function deleteAllFilesModule($id)
+    {
+        $files = Module::where('course_id', $id)->get();
+        foreach ($files as $key => $value) {
+            Storage::delete($value->file);
+            $value->delete();
+        }
+        return response()->json(['status' => 'success', 'data' => $files], 200);
+    }
+
+    // public function getAllModuleFiles($id)
+    // {
+    //     $public_dir=public_path().'/basicFiles';
+    //     $files = Module::where('course_id','=',$id);
+    //     $zipFileName = \Carbon\Carbon::now().'-'.$id.'.zip';
+    //     $zip = new ZipArchive;
+
+    //     foreach ($files as $key => $value) {
+    //         if($zip->open($public_dir . '/' . $zipFileName,ZipArchive::CREATE) === TRUE){
+    //             $zip->addFile($value->file,$value->title);
+    //             $zip->close();
+    //         }
+    //     }
+
+    //     $headers = array(
+    //         'Content-Type' => 'application/octet-stream',
+    //     );
+
+    //     $filetopath=$public_dir.'/'.$zipFileName;
+
+    //     if(file_exists($filetopath)){
+    //         return response()->download($filetopath,$zipFileName,$headers);
+    //     }
+
+
+    //  }
 }

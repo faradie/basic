@@ -16,7 +16,7 @@
               <td class="parent-row">{{ row.item.id }}</td>
             </template>
             <template v-slot:cell(name)="row">
-              <td class="parent-row">{{ row.item.name }}</td>
+              <td class="parent-row">{{ row.item.name.toUpperCase() }}</td>
             </template>
             <template v-slot:cell(status)="row">
               <a class="btn btn-success btn-flat disabled" v-if="row.item.status == 1">Aktif</a>

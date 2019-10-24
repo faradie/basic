@@ -28,9 +28,10 @@ class CategoriesController extends Controller
         ]);
 
         $uid = Uuid::generate();
+        $newTitle = strtolower($request->title);
         Category::create([
             'id' => "$uid",
-            'title' => "$request->title",
+            'title' => "$newTitle",
             'description' => "$request->description"
         ]);
 
@@ -57,8 +58,9 @@ class CategoriesController extends Controller
         ]);
 
         $category = Category::find($id);
+        $newTit = strtolower($request->title);
         $category->update([
-            'title' => $request->title,
+            'title' => "$newTit",
             'description' => $request->description
         ]);
 

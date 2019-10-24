@@ -40,6 +40,21 @@
               <span aria-hidden="true">&times;</span>
             </button>
             <h4 class="modal-title">MATERI {{ choosen.toUpperCase() }}</h4>
+            <!-- <button
+              v-if="modules[choosenID] != null"
+              type="button"
+              @click.prevent="downloadAllFiles(choosenID)"
+              class="btn btn-box-tool"
+            >Download semua materi</button>-->
+            <button
+              v-if="modules[choosenID] != null"
+              type="button"
+              @click.prevent="deleteAllFiles(choosenID)"
+              class="btn btn-box-tool"
+            >Hapus semua materi</button>
+          </div>
+          <div v-if="modules[choosenID] == null" class="modal-body">
+            <h3>Tidak ada materi terbaru</h3>
           </div>
           <div class="modal-body">
             <div
@@ -56,7 +71,7 @@
                 >
                   <i class="fa fa-download"></i>
                 </button>
-                <h3 class="box-title">{{ row.file.toUpperCase() }}</h3>
+                <h3 class="box-title">{{ row.title.toUpperCase() }}</h3>
                 <div class="box-tools pull-right">
                   <button
                     data-toggle="modal"
@@ -103,7 +118,9 @@ export default {
     ...mapActions("modules", [
       "getAllModules",
       "getFile",
-      "deleteIndividualModule"
+      "deleteIndividualModule",
+      "deleteAllFilesModule"
+      // "downloadFilesModule"
     ]),
     getModulesID(id, name) {
       this.choosenID = id;
@@ -140,7 +157,41 @@ export default {
           });
         }
       });
+    },
+    deleteAllFiles(val) {
+      this.$swal({
+        title: "Yakin dihapus?",
+        text: "Apabila terhapus tidak dapat dikembalikan seperti mantan!",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Ya Hapus!",
+        cancelButtonText: "Tidak"
+      }).then(result => {
+        if (result.value) {
+          this.deleteAllFilesModule(val).then(() => {
+            this.getAllModules();
+            const Toast = this.$swal.mixin({
+              toast: true,
+              position: "top-end",
+              showConfirmButton: false,
+              timer: 3000
+            });
+
+            Toast.fire({
+              type: "success",
+              title: "Berhasil hapus semua materi!"
+            });
+          });
+        }
+      });
     }
+    // downloadAllFiles(val){
+    //   this.downloadFilesModule(val).then(()=>{
+
+    //   })
+    // }
   },
   computed: {
     ...mapState("courses", {
